@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Divin Ntwali · Designer & Développeur</title>
-    
+
     <!-- Fonts : Inter + Space Grotesk -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    
+
     <style>
         /* ============================================
                    VARIABLES & RESET
@@ -147,13 +147,11 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             text-decoration: none;
-            box-shadow: 0 8px 40px rgba(220, 38, 38, 0.25);
         }
 
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-3px);
-            box-shadow: 0 12px 50px rgba(220, 38, 38, 0.35);
         }
 
         .btn-secondary {
@@ -168,39 +166,20 @@
             cursor: pointer;
             transition: all 0.4s ease;
             text-decoration: none;
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        body.light-mode .btn-secondary {
-            background: rgba(0, 0, 0, 0.03);
+            background: transparent;
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
             border-color: var(--primary);
             transform: translateY(-3px);
-        }
-
-        body.light-mode .btn-secondary:hover {
-            background: rgba(0, 0, 0, 0.06);
         }
 
         /* ============================================
                    ANIMATIONS
                 ============================================ */
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 40px rgba(220, 38, 38, 0.1); }
-            50% { box-shadow: 0 0 80px rgba(220, 38, 38, 0.2); }
-        }
-
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
         }
 
         @keyframes fadeInScale {
@@ -293,14 +272,6 @@
             gap: 6px;
         }
 
-        .navbar .logo .logo-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
-            display: inline-block;
-            animation: pulse-glow 2s infinite;
-        }
-
         .navbar .logo span {
             color: var(--primary);
         }
@@ -358,8 +329,8 @@
         }
 
         .menu-toggle {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color-custom);
+            background: transparent;
+            border: none;
             color: var(--text-color);
             font-size: 18px;
             cursor: pointer;
@@ -375,12 +346,7 @@
         }
 
         .menu-toggle:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--primary);
-        }
-
-        body.light-mode .menu-toggle:hover {
-            background: rgba(0, 0, 0, 0.05);
+            opacity: 0.7;
         }
 
         .menu-toggle .menu-icon {
@@ -440,8 +406,8 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color-custom);
+            background: transparent;
+            border: none;
             color: var(--text-color);
             font-size: 24px;
             cursor: pointer;
@@ -455,8 +421,7 @@
         }
 
         .mobile-menu .close-menu:hover {
-            background: rgba(220, 38, 38, 0.15);
-            border-color: var(--primary);
+            opacity: 0.7;
         }
 
         .mobile-menu a {
@@ -582,7 +547,6 @@
             background: var(--primary);
             transform: scale(1.2);
             border-color: var(--primary);
-            box-shadow: 0 0 30px rgba(220, 38, 38, 0.5);
         }
 
         .hero-indicator:hover {
@@ -646,7 +610,6 @@
         .hero h1 .hero-name {
             display: block;
             font-size:3rem;
-            
         }
 
         .hero .subtitle {
@@ -776,7 +739,6 @@
         .about-card:hover {
             transform: translateY(-4px);
             border-color: rgba(220, 38, 38, 0.2);
-            box-shadow: var(--shadow-glow-custom);
         }
 
         .about-card .card-image {
@@ -858,17 +820,6 @@
             margin-bottom: 10px;
         }
 
-        .skill-group .group-header .icon {
-            width: 44px;
-            height: 44px;
-            background: rgba(0, 0, 0, 0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: var(--primary);
-        }
-
         .skill-group .group-header h3 {
             font-family: var(--font-display);
             font-size: 17px;
@@ -901,14 +852,14 @@
 
         .skill-bar-track {
             width: 100%;
-            height: 6px;
+            height: 4px;
             background: var(--bg-surface);
             overflow: hidden;
         }
 
         .skill-bar-track .skill-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--primary));
+            background: var(--primary);
             width: 0%;
             transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
@@ -918,7 +869,7 @@
         }
 
         /* ============================================
-                   PROJECTS
+                   PROJECTS - Design épuré
                 ============================================ */
         .projects {
             background: var(--bg-body);
@@ -936,7 +887,7 @@
         .projects-grid {
             display: grid;
             gap: 24px;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr;
         }
 
         .project-card {
@@ -945,12 +896,13 @@
             overflow: hidden;
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-4px);
             border-color: rgba(220, 38, 38, 0.2);
-            box-shadow: var(--shadow-glow-custom);
         }
 
         .project-card .project-image {
@@ -977,6 +929,9 @@
 
         .project-card .project-body {
             padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card .project-body .project-tags {
@@ -1007,10 +962,11 @@
             color: var(--text-secondary-color);
             line-height: 1.7;
             margin-bottom: 14px;
+            flex: 1;
         }
 
         .project-card .project-body .project-link {
-            color: var(--primary);
+            color: var(--text-color);
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
@@ -1019,9 +975,14 @@
             gap: 6px;
             transition: gap 0.3s ease;
             cursor: pointer;
+            padding: 8px 16px;
+            border: 1px solid var(--border-color-custom);
+            align-self: flex-start;
+            background: transparent;
         }
 
         .project-card .project-body .project-link:hover {
+            border-color: var(--primary);
             gap: 12px;
         }
 
@@ -1070,7 +1031,6 @@
         }
 
         .project-modal .modal-close:hover {
-            background: rgba(220, 38, 38, 0.15);
             border-color: var(--primary);
         }
 
@@ -1123,7 +1083,7 @@
 
         .project-modal .modal-details {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 16px;
             margin-bottom: 30px;
             max-width: 800px;
@@ -1163,10 +1123,6 @@
         /* ============================================
                    SERVICES
                 ============================================ */
-
-        .year-experience {
-            color: rgb(186, 11, 8);
-        }
         .services {
             background: var(--bg-card);
         }
@@ -1200,19 +1156,7 @@
 
         .service-card.featured {
             border-color: rgba(220, 38, 38, 0.2);
-            background: linear-gradient(135deg, var(--bg-body), rgba(220, 38, 38, 0.03));
-        }
-
-        .service-card .service-icon {
-            width: 52px;
-            height: 52px;
-            background: rgba(220, 38, 38, 0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: var(--primary);
-            margin-bottom: 16px;
+            background: var(--bg-body);
         }
 
         .service-card h3 {
@@ -1275,13 +1219,11 @@
         .service-card .btn-service.primary {
             background: var(--primary);
             color: #fff;
-            box-shadow: 0 8px 30px rgba(220, 38, 38, 0.2);
         }
 
         .service-card .btn-service.primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(220, 38, 38, 0.3);
         }
 
         .service-card .btn-service.secondary {
@@ -1323,7 +1265,7 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(180deg, var(--primary), var(--secondary), transparent);
+            background: var(--primary);
         }
 
         .timeline-item {
@@ -1418,7 +1360,7 @@
         }
 
         /* ============================================
-                   CARROUSEL AVIS CLIENTS - AVEC BORDER-RADIUS
+                   CARROUSEL AVIS CLIENTS
                 ============================================ */
         .testimonials {
             background: var(--bg-card);
@@ -1455,7 +1397,6 @@
             border: 1px solid var(--border-color-custom);
             padding: 36px 32px;
             text-align: center;
-            border-radius: 16px;
         }
 
         .testimonial-card .stars {
@@ -1517,7 +1458,6 @@
         }
 
         .carousel-controls button:hover {
-            background: rgba(220, 38, 38, 0.15);
             border-color: var(--primary);
         }
 
@@ -1550,17 +1490,6 @@
             background: var(--bg-body);
             position: relative;
             overflow: hidden;
-        }
-
-        .contact::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(220, 38, 38, 0.04), transparent 70%);
-            pointer-events: none;
         }
 
         .contact-header {
@@ -1651,7 +1580,6 @@
         }
 
         .contact-social-links a:hover {
-            background: rgba(220, 38, 38, 0.15);
             color: var(--primary);
             transform: translateY(-3px);
         }
@@ -1695,7 +1623,6 @@
         .contact-form-card textarea:focus {
             border-color: var(--primary);
             background: var(--bg-body);
-            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.05);
         }
 
         .contact-form-card input::placeholder,
@@ -1716,7 +1643,7 @@
         }
 
         /* ============================================
-                   COMMANDE
+                   COMMANDE - Design épuré
                 ============================================ */
         .commande {
             background: var(--bg-card);
@@ -1749,18 +1676,6 @@
             border-color: rgba(220, 38, 38, 0.15);
         }
 
-        .commande-card .commande-icon {
-            width: 64px;
-            height: 64px;
-            background: rgba(220, 38, 38, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: var(--primary);
-            margin: 0 auto 16px;
-        }
-
         .commande-card h3 {
             font-family: var(--font-display);
             font-size: 20px;
@@ -1787,6 +1702,11 @@
             font-size: 16px;
             font-weight: 400;
             color: var(--text-muted);
+        }
+
+        .commande-card .btn-primary {
+            width: 100%;
+            justify-content: center;
         }
 
         /* ============================================
@@ -1961,6 +1881,12 @@
             .hero-stats .stat-item .number { font-size: 28px; }
         }
 
+        @media (min-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (min-width: 1024px) {
             .container { padding: 0 40px; }
             .section-padding { padding: 120px 0; }
@@ -1975,15 +1901,10 @@
 
             .services-grid { grid-template-columns: 1fr 1fr 1fr; }
             .commande-grid { grid-template-columns: 1fr 1fr 1fr; }
+            .projects-grid { grid-template-columns: 1fr 1fr 1fr; }
 
             .hero-stats { gap: 48px; }
             .hero-stats .stat-item .number { font-size: 32px; }
-        }
-
-        @media (max-width: 1023px) {
-            .projects-grid {
-                grid-template-columns: 1fr 1fr;
-            }
         }
 
         @media (max-width: 639px) {
@@ -2072,7 +1993,6 @@
                 <img src="images/photo.jpg" alt="Divin Ntwali" class="logo-avatar" />
                 <div class="logo">
                     Divin<span>.</span>
-                    <span class="logo-dot"></span>
                 </div>
             </a>
 
@@ -2134,12 +2054,10 @@
             <div class="hero-slide">
                 <img src="images/True colours.jpeg" alt="Mobile & créativité" loading="lazy" />
             </div>
-            
         </div>
 
         <div class="container">
             <div class="hero-content animate-on-scroll visible">
-                
                 <h1>
                     <span class="hero-intro">Hi, je suis</span>
                     <span class="hero-name">Divin Ntwali</span>
@@ -2148,8 +2066,8 @@
                 </h1>
 
                 <p class="subtitle">
-                    Je crée des expériences numériques <strong>sur mesure</strong> 
-                    du design d'interface au développement web et mobile, 
+                    Je crée des expériences numériques <strong>sur mesure</strong>
+                    du design d'interface au développement web et mobile,
                     en passant par la stratégie de marque.
                 </p>
 
@@ -2199,13 +2117,13 @@
                         <span class="highlight">et créateur d'expériences</span>
                     </h2>
                     <p>
-                        Je m'appelle <strong>Divin Ntwali</strong>, un créatif passionné par l'intersection 
-                        entre le design, la technologie et l'humain. Avec un parcours hybride 
+                        Je m'appelle <strong>Divin Ntwali</strong>, un créatif passionné par l'intersection
+                        entre le design, la technologie et l'humain. Avec un parcours hybride
                         en design et en développement, j'apporte une vision à 360° à chaque projet.
                     </p>
                     <p>
-                        Ma philosophie : <strong>allier esthétique et performance</strong> pour créer 
-                        des produits numériques qui non seulement séduisent visuellement, 
+                        Ma philosophie : <strong>allier esthétique et performance</strong> pour créer
+                        des produits numériques qui non seulement séduisent visuellement,
                         mais qui fonctionnent parfaitement sur tous les supports.
                     </p>
                     <div class="signature">
@@ -2273,7 +2191,6 @@
                 <!-- Design -->
                 <div class="skill-group animate-on-scroll">
                     <div class="group-header">
-                        <div class="icon"><i class="fas fa-palette"></i></div>
                         <h3>Design & Création</h3>
                     </div>
                     <div class="skill-bar-item">
@@ -2317,7 +2234,6 @@
                 <!-- Développement Web -->
                 <div class="skill-group animate-on-scroll">
                     <div class="group-header">
-                        <div class="icon"><i class="fas fa-laptop-code"></i></div>
                         <h3>Développement Web</h3>
                     </div>
                     <div class="skill-bar-item">
@@ -2361,7 +2277,6 @@
                 <!-- Mobile -->
                 <div class="skill-group animate-on-scroll">
                     <div class="group-header">
-                        <div class="icon"><i class="fas fa-mobile-alt"></i></div>
                         <h3>Applications Mobiles</h3>
                     </div>
                     <div class="skill-bar-item">
@@ -2406,7 +2321,7 @@
     </section>
 
     <!-- ============================================
-    PROJECTS - CONTENU MODIFIABLE EN HTML
+    PROJECTS - Design épuré
 ============================================ -->
     <section class="projects section-padding" id="projects">
         <div class="container">
@@ -2578,7 +2493,7 @@
 
             <div class="services-grid">
                 <div class="service-card animate-on-scroll">
-                    <h2>Petites entreprises</h2>
+                    <h3>Petites entreprises</h3>
                     <div class="service-price">$100 <small>/ projet</small></div>
                     <p>Idéal pour les startups et projets en phase de lancement.</p>
                     <ul class="service-features">
@@ -2590,7 +2505,7 @@
                 </div>
 
                 <div class="service-card featured animate-on-scroll">
-                    <h2>Moyennes entreprises </h2>
+                    <h3>Moyennes entreprises</h3>
                     <div class="service-price">$300 <small>/ projet</small></div>
                     <p>Pour les marques établies souhaitant un repositionnement stratégique.</p>
                     <ul class="service-features">
@@ -2602,8 +2517,8 @@
                 </div>
 
                 <div class="service-card animate-on-scroll">
-                        <h2>Grandes entreprises </h2>
-                        <div class="service-price">$1000 <small>/ projet</small></div>
+                    <h3>Grandes entreprises</h3>
+                    <div class="service-price">$1000 <small>/ projet</small></div>
                     <p>L'accompagnement premium pour les marques qui veulent se démarquer.</p>
                     <ul class="service-features">
                         <li><i class="fas fa-check-circle"></i> Direction artistique 360°</li>
@@ -2634,10 +2549,10 @@
                 <div class="timeline-item animate-on-scroll">
                     <div class="timeline-dot"><i class="fas fa-circle"></i></div>
                     <div class="timeline-content">
-                        <strong class= "year-experience"> De 2025 - Aujourd'hui</strong>
-                        <h4>Fondateur de Dunia E-learning </h4>
-                        <div class="company"><i class="fas fa-building"></i> Dunia E-learning Kinshasa  </div>
-                        <div class="desc">Je suis le fondateur de la plateforme Dunia, une plateforme de formations dans le numérique et auw nouvelles technologique. En ma qualité de fondateur je suis aussi Formateur  en design graphique et développeur dans la plateforme Dunia</div>
+                        <span class="year">2025 - Aujourd'hui</span>
+                        <h4>Fondateur de Dunia E-learning</h4>
+                        <div class="company"><i class="fas fa-building"></i> Dunia E-learning Kinshasa</div>
+                        <div class="desc">Je suis le fondateur de la plateforme Dunia, une plateforme de formations dans le numérique et aux nouvelles technologies. En ma qualité de fondateur, je suis aussi Formateur en design graphique et développeur dans la plateforme Dunia.</div>
                         <div class="tech-used">
                             <span>React</span>
                             <span>TypeScript</span>
@@ -2774,7 +2689,7 @@
     </section>
 
     <!-- ============================================
-    COMMANDE
+    COMMANDE - Design épuré
 ============================================ -->
     <section class="commande section-padding" id="commande">
         <div class="container">
@@ -2790,7 +2705,6 @@
 
             <div class="commande-grid">
                 <div class="commande-card animate-on-scroll">
-                    <div class="commande-icon"><i class="fas fa-rocket"></i></div>
                     <h3>Startup</h3>
                     <p>Parfait pour les projets en phase de lancement. Identité visuelle, UX Design et landing page.</p>
                     <div class="commande-price">$1,990 <small>HT</small></div>
@@ -2798,7 +2712,6 @@
                 </div>
 
                 <div class="commande-card animate-on-scroll" style="border-color:rgba(220,38,38,0.2);">
-                    <div class="commande-icon"><i class="fas fa-star"></i></div>
                     <h3>Business</h3>
                     <p>Pour les marques établies. Stratégie de marque, design system et développement web complet.</p>
                     <div class="commande-price">$2,990 <small>HT</small></div>
@@ -2806,7 +2719,6 @@
                 </div>
 
                 <div class="commande-card animate-on-scroll">
-                    <div class="commande-icon"><i class="fas fa-crown"></i></div>
                     <h3>Premium</h3>
                     <p>L'accompagnement complet. Direction artistique, campagne 360° et conseil stratégique.</p>
                     <div class="commande-price">$4,990 <small>HT</small></div>
@@ -2905,7 +2817,7 @@
                 <div class="footer-brand">
                     <div class="logo">Divin<span>.</span></div>
                     <p>
-                        Designer & développeur Full-Stack. 
+                        Designer & développeur Full-Stack.
                         Je crée des expériences numériques qui font la différence.
                     </p>
                 </div>
@@ -3319,7 +3231,7 @@
         });
 
         console.log('🚀 Divin Ntwali · Designer & Développeur Full-Stack');
-        console.log('💡 Portfolio avec projets modifiables en HTML, modale plein écran, border-radius uniquement sur avatar, avatars avis et cadre avis');
+        console.log('💡 Portfolio avec design épuré, sans effets lumineux');
         console.log('📧 divinntwali119@gmail.com | 📱 +243 901 087 801');
     </script>
 
