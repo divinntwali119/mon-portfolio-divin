@@ -392,9 +392,16 @@ document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
 });
 
 // ============================================
-// CONSOLE
+// CONSOLE - Avec vos vrais réseaux sociaux
 // ============================================
 console.log('🚀 Divin Ntwali · Designer & Développeur Full-Stack');
 console.log('📸 Galerie ajoutée - la section la plus visuelle du site');
-console.log('🔗 Réseaux sociaux : GitHub, LinkedIn, Twitter, Dribbble, Instagram, Facebook, YouTube, TikTok');
+console.log('🔗 Réseaux sociaux :');
+console.log('   • GitHub: https://github.com/divinntwali');
+console.log('   • LinkedIn: https://linkedin.com/in/divinntwali');
+console.log('   • Twitter: https://twitter.com/divinntwali');
+console.log('   • Instagram: https://instagram.com/divinntwali');
+console.log('   • Facebook: https://www.facebook.com/DivinDesign');
+console.log('   • YouTube: https://www.youtube.com/@Divin_Design');
+console.log('   • TikTok: https://tiktok.com/@divinntwali20');
 console.log('📧 divinntwali119@gmail.com | 📱 +243 901 087 801');
