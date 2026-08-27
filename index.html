@@ -1777,6 +1777,7 @@
             display: flex;
             gap: 12px;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         .contact-social-links a {
@@ -1796,6 +1797,7 @@
         .contact-social-links a:hover {
             color: var(--primary);
             transform: translateY(-3px);
+            border-color: var(--primary);
         }
 
         .contact-form-card {
@@ -1956,6 +1958,33 @@
             color: var(--text-secondary-color);
             max-width: 300px;
             line-height: 1.8;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary-color);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid var(--border-color-custom);
+        }
+
+        .footer-social a:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
         }
 
         .footer-links h4 {
@@ -2181,7 +2210,6 @@
                 height: 12px;
             }
 
-            /* Gallery responsive */
             .gallery-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 10px;
@@ -2308,7 +2336,6 @@
     HERO - PAGE D'ACCUEIL AVEC SLIDES D'IMAGES
     ============================================ -->
     <section class="hero" id="home">
-        <!-- Slideshow d'images en arrière-plan -->
         <div class="hero-slideshow" id="heroSlideshow">
             <div class="hero-slide active">
                 <img src="images/True colours.jpeg" alt="Développeur & artiste" loading="lazy" />
@@ -2456,7 +2483,6 @@
             </div>
 
             <div class="skills-grid">
-                <!-- Design -->
                 <div class="skill-group animate-on-scroll">
                     <div class="group-header">
                         <h3>Design & Création</h3>
@@ -2499,7 +2525,6 @@
                     </div>
                 </div>
 
-                <!-- Développement Web -->
                 <div class="skill-group animate-on-scroll">
                     <div class="group-header">
                         <h3>Développement Web</h3>
@@ -2542,7 +2567,6 @@
                     </div>
                 </div>
 
-                <!-- Mobile -->
                 <div class="skill-group animate-on-scroll">
                     <div class="group-header">
                         <h3>Applications Mobiles</h3>
@@ -2589,7 +2613,7 @@
     </section>
 
     <!-- ============================================
-    PROJECTS - Design épuré
+    PROJECTS
     ============================================ -->
     <section class="projects section-padding" id="projects">
         <div class="container">
@@ -2603,7 +2627,6 @@
             </div>
 
             <div class="projects-grid" id="projectsGrid">
-                <!-- Projet 1 -->
                 <div class="project-card animate-on-scroll" data-project="project1">
                     <div class="project-image">
                         <img src="images/cenumep.png" alt="Best Diversity Design Kit" loading="lazy" />
@@ -2620,7 +2643,6 @@
                     </div>
                 </div>
 
-                <!-- Projet 2 -->
                 <div class="project-card animate-on-scroll" data-project="project2">
                     <div class="project-image">
                         <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=80" alt="Filled Coffee Co." loading="lazy" />
@@ -2637,7 +2659,6 @@
                     </div>
                 </div>
 
-                <!-- Projet 3 -->
                 <div class="project-card animate-on-scroll" data-project="project3">
                     <div class="project-image">
                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Nova Scene" loading="lazy" />
@@ -2654,7 +2675,6 @@
                     </div>
                 </div>
 
-                <!-- Projet 4 -->
                 <div class="project-card animate-on-scroll" data-project="project4">
                     <div class="project-image">
                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="EcoTrack Dashboard" loading="lazy" />
@@ -2671,7 +2691,6 @@
                     </div>
                 </div>
 
-                <!-- Projet 5 -->
                 <div class="project-card animate-on-scroll" data-project="project5">
                     <div class="project-image">
                         <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=80" alt="Art Gallery App" loading="lazy" />
@@ -2688,7 +2707,6 @@
                     </div>
                 </div>
 
-                <!-- Projet 6 -->
                 <div class="project-card animate-on-scroll" data-project="project6">
                     <div class="project-image">
                         <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" alt="Portfolio Pro" loading="lazy" />
@@ -2709,7 +2727,7 @@
     </section>
 
     <!-- ============================================
-    MODAL PROJET - PLEIN ÉCRAN
+    MODAL PROJET
     ============================================ -->
     <div class="project-modal" id="projectModal">
         <div class="modal-content">
@@ -2746,7 +2764,7 @@
     </div>
 
     <!-- ============================================
-    GALLERY - LA MEILLEURE SECTION
+    GALLERY
     ============================================ -->
     <section class="gallery section-padding" id="gallery">
         <div class="container">
@@ -2981,7 +2999,6 @@
 
             <div class="testimonials-carousel animate-on-scroll">
                 <div class="testimonials-track" id="testimonialsTrack">
-                    <!-- Slide 1 -->
                     <div class="testimonial-slide">
                         <div class="testimonial-card">
                             <div class="stars">★★★★★</div>
@@ -2995,7 +3012,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Slide 2 -->
                     <div class="testimonial-slide">
                         <div class="testimonial-card">
                             <div class="stars">★★★★★</div>
@@ -3009,7 +3025,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Slide 3 -->
                     <div class="testimonial-slide">
                         <div class="testimonial-card">
                             <div class="stars">★★★★★</div>
@@ -3039,7 +3054,7 @@
     </section>
 
     <!-- ============================================
-    COMMANDE - Design épuré
+    COMMANDE
     ============================================ -->
     <section class="commande section-padding" id="commande">
         <div class="container">
@@ -3125,11 +3140,14 @@
                     </div>
 
                     <div class="contact-social-links">
-                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://github.com/divinntwali" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/divinntwali" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/divinntwali" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://dribbble.com/divinntwali" target="_blank" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+                        <a href="https://instagram.com/divinntwali" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/divinntwali" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://youtube.com/@divinntwali" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://tiktok.com/@divinntwali" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
 
@@ -3170,6 +3188,16 @@
                         Designer & développeur Full-Stack.
                         Je crée des expériences numériques qui font la différence.
                     </p>
+                    <div class="footer-social">
+                        <a href="https://github.com/divinntwali" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/divinntwali" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/divinntwali" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://dribbble.com/divinntwali" target="_blank" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+                        <a href="https://instagram.com/divinntwali" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/divinntwali" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://youtube.com/@divinntwali" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://tiktok.com/@divinntwali" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
                 </div>
 
                 <div class="footer-links">

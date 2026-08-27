@@ -120,7 +120,8 @@ function toggleTheme() {
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
     document.body.classList.add('light-mode');
-    document.querySelector('#themeToggle i').className = 'fas fa-sun';
+    const themeIcon = document.querySelector('#themeToggle i');
+    if (themeIcon) themeIcon.className = 'fas fa-sun';
     document.getElementById('themeToggleMobile').innerHTML = '<i class="fas fa-sun"></i> Mode sombre';
 }
 
@@ -390,6 +391,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
     });
 });
 
+// ============================================
+// CONSOLE
+// ============================================
 console.log('🚀 Divin Ntwali · Designer & Développeur Full-Stack');
 console.log('📸 Galerie ajoutée - la section la plus visuelle du site');
+console.log('🔗 Réseaux sociaux : GitHub, LinkedIn, Twitter, Dribbble, Instagram, Facebook, YouTube, TikTok');
 console.log('📧 divinntwali119@gmail.com | 📱 +243 901 087 801');
