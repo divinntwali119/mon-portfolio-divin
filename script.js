@@ -1,52 +1,64 @@
 // ============================================
-// PRELOADER - Temps de chargement réduit à 3s max
+// PRELOADER - ULTRA RAPIDE (2 secondes max)
 // ============================================
 (function() {
     const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+    
     const loaderFill = document.getElementById('loaderFill');
     const loaderPercent = document.getElementById('loaderPercent');
     let progress = 0;
-    let startTime = Date.now();
-    const maxDuration = 3000; // 3 secondes maximum
-
+    let isFinished = false;
+    const maxDuration = 2000; // 2 secondes max
+    
+    // Fonction pour terminer le preloader
+    function finishPreloader() {
+        if (isFinished) return;
+        isFinished = true;
+        
+        if (loaderFill) loaderFill.style.width = '100%';
+        if (loaderPercent) loaderPercent.textContent = '100%';
+        
+        setTimeout(function() {
+            preloader.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+    }
+    
+    // Mise à jour de la progression
     function updateLoader() {
-        const elapsed = Date.now() - startTime;
+        if (isFinished) return;
         
-        // Accélérer la progression si on approche de la limite
-        let increment;
-        if (elapsed > maxDuration * 0.7) {
-            increment = Math.random() * 25 + 10;
-        } else {
-            increment = Math.random() * 12 + 3;
-        }
-        
-        progress += increment;
+        // Incrément plus rapide
+        progress += Math.random() * 20 + 8;
         if (progress > 100) progress = 100;
         
-        loaderFill.style.width = progress + '%';
-        loaderPercent.textContent = Math.round(progress) + '%';
-
-        if (progress < 100 && elapsed < maxDuration) {
-            const delay = Math.random() * 100 + 50;
-            setTimeout(updateLoader, delay);
+        if (loaderFill) loaderFill.style.width = progress + '%';
+        if (loaderPercent) loaderPercent.textContent = Math.round(progress) + '%';
+        
+        if (progress < 100) {
+            // Délai réduit
+            setTimeout(updateLoader, Math.random() * 80 + 40);
         } else {
-            // Forcer la fin après 3 secondes max
-            setTimeout(function() {
-                loaderFill.style.width = '100%';
-                loaderPercent.textContent = '100%';
-                setTimeout(function() {
-                    preloader.classList.add('hidden');
-                    document.body.style.overflow = '';
-                    // Focus sur le contenu principal
-                    const main = document.querySelector('main');
-                    if (main) main.focus();
-                }, 300);
-            }, Math.max(0, maxDuration - elapsed));
+            finishPreloader();
         }
     }
-
+    
+    // Démarrer
     document.body.style.overflow = 'hidden';
-    setTimeout(updateLoader, 200);
+    setTimeout(updateLoader, 150);
+    
+    // SECOURS : Forcer la fin après 2 secondes
+    setTimeout(finishPreloader, maxDuration);
+    
+    // SECOURS : Forcer la fin quand la page est complètement chargée
+    if (document.readyState === 'complete') {
+        setTimeout(finishPreloader, 500);
+    } else {
+        window.addEventListener('load', function() {
+            setTimeout(finishPreloader, 300);
+        });
+    }
 })();
 
 // ============================================
@@ -122,7 +134,7 @@ const projectData = {
 };
 
 // ============================================
-// THEME TOGGLE - avec sauvegarde localStorage
+// THEME TOGGLE
 // ============================================
 function toggleTheme() {
     document.body.classList.toggle('light-mode');
@@ -139,7 +151,6 @@ function toggleTheme() {
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
 
-// Charger le thème sauvegardé
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
     document.body.classList.add('light-mode');
@@ -152,7 +163,7 @@ document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 document.getElementById('themeToggleMobile').addEventListener('click', toggleTheme);
 
 // ============================================
-// HERO SLIDESHOW - avec gestion d'accessibilité
+// HERO SLIDESHOW
 // ============================================
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroIndicators = document.querySelectorAll('.hero-indicator');
@@ -160,30 +171,23 @@ let heroCurrentSlide = 0;
 let heroInterval = null;
 
 function goToHeroSlide(index) {
-    heroSlides.forEach(slide => {
-        slide.classList.remove('active');
-        slide.setAttribute('aria-hidden', 'true');
-    });
+    if (!heroSlides.length) return;
+    heroSlides.forEach(slide => slide.classList.remove('active'));
     heroIndicators.forEach(ind => ind.classList.remove('active'));
-    
     heroSlides[index].classList.add('active');
-    heroSlides[index].setAttribute('aria-hidden', 'false');
-    heroIndicators[index].classList.add('active');
+    if (heroIndicators[index]) heroIndicators[index].classList.add('active');
     heroCurrentSlide = index;
-    
-    heroIndicators.forEach((ind, i) => {
-        ind.setAttribute('aria-label', `Image ${i + 1} sur ${heroSlides.length}`);
-        ind.setAttribute('aria-current', i === index ? 'true' : 'false');
-    });
 }
 
 function nextHeroSlide() {
+    if (!heroSlides.length) return;
     const next = (heroCurrentSlide + 1) % heroSlides.length;
     goToHeroSlide(next);
 }
 
 function startHeroSlideshow() {
     if (heroInterval) clearInterval(heroInterval);
+    if (!heroSlides.length) return;
     heroInterval = setInterval(nextHeroSlide, 5500);
 }
 
@@ -194,22 +198,15 @@ function stopHeroSlideshow() {
     }
 }
 
-// Initialisation des indicateurs
-heroIndicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', function() {
-        stopHeroSlideshow();
-        goToHeroSlide(index);
-        startHeroSlideshow();
-    });
-    indicator.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
+if (heroIndicators.length) {
+    heroIndicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', function() {
             stopHeroSlideshow();
             goToHeroSlide(index);
             startHeroSlideshow();
-        }
+        });
     });
-});
+}
 
 const heroContainer = document.querySelector('.hero-slideshow');
 if (heroContainer) {
@@ -217,8 +214,7 @@ if (heroContainer) {
     heroContainer.addEventListener('mouseleave', startHeroSlideshow);
 }
 
-// Démarrer le slideshow
-if (heroSlides.length > 0) {
+if (heroSlides.length) {
     goToHeroSlide(0);
     startHeroSlideshow();
 }
@@ -232,10 +228,9 @@ const mobileMenu = document.getElementById('mobileMenu');
 const closeMenu = document.getElementById('closeMenu');
 let menuOpen = false;
 
-// Gestion du scroll pour la navbar avec passive
 let scrollTimeout = false;
 window.addEventListener('scroll', function() {
-    if (!scrollTimeout) {
+    if (!scrollTimeout && navbar) {
         scrollTimeout = true;
         requestAnimationFrame(function() {
             navbar.classList.toggle('scrolled', window.scrollY > 30);
@@ -246,47 +241,25 @@ window.addEventListener('scroll', function() {
 
 function toggleMobileMenu() {
     menuOpen = !menuOpen;
-    mobileMenu.classList.toggle('active', menuOpen);
-    menuToggle.classList.toggle('active', menuOpen);
+    if (mobileMenu) mobileMenu.classList.toggle('active', menuOpen);
+    if (menuToggle) menuToggle.classList.toggle('active', menuOpen);
     document.body.style.overflow = menuOpen ? 'hidden' : '';
-    
-    if (menuOpen) {
-        mobileMenu.setAttribute('aria-hidden', 'false');
-        setTimeout(() => {
-            const firstLink = mobileMenu.querySelector('a');
-            if (firstLink) firstLink.focus();
-        }, 100);
-    } else {
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        menuToggle.focus();
-    }
 }
 
-menuToggle.addEventListener('click', toggleMobileMenu);
-closeMenu.addEventListener('click', toggleMobileMenu);
+if (menuToggle) menuToggle.addEventListener('click', toggleMobileMenu);
+if (closeMenu) closeMenu.addEventListener('click', toggleMobileMenu);
 
-// Fermer le menu avec la touche Escape
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && menuOpen) {
-        toggleMobileMenu();
-    }
-});
-
-// Fermer le menu en cliquant sur un lien
 document.querySelectorAll('.mobile-menu a').forEach(function(link) {
     link.addEventListener('click', function() {
-        if (menuOpen) {
-            mobileMenu.classList.remove('active');
-            menuOpen = false;
-            menuToggle.classList.remove('active');
-            document.body.style.overflow = '';
-            mobileMenu.setAttribute('aria-hidden', 'true');
-        }
+        if (mobileMenu) mobileMenu.classList.remove('active');
+        menuOpen = false;
+        if (menuToggle) menuToggle.classList.remove('active');
+        document.body.style.overflow = '';
     });
 });
 
 // ============================================
-// ACTIVE NAV LINK - avec debounce
+// ACTIVE NAV LINK
 // ============================================
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a:not(.btn-primary)');
@@ -304,18 +277,16 @@ window.addEventListener('scroll', function() {
         });
 
         navLinks.forEach(function(link) {
-            const href = link.getAttribute('href');
-            const isActive = href === '#' + current;
+            const isActive = link.getAttribute('href') === '#' + current;
             link.classList.toggle('active', isActive);
             link.style.color = isActive ? 'var(--text-color)' : 'var(--text-secondary-color)';
-            link.setAttribute('aria-current', isActive ? 'page' : 'false');
         });
         navTimeout = null;
     }, 100);
 }, { passive: true });
 
 // ============================================
-// SCROLL ANIMATIONS - avec Intersection Observer
+// SCROLL ANIMATIONS
 // ============================================
 const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
@@ -336,7 +307,7 @@ animatedElements.forEach(function(el) {
 });
 
 // ============================================
-// SKILLS BARRES - avec Intersection Observer
+// SKILLS BARRES
 // ============================================
 const skillBars = document.querySelectorAll('.skill-bar-fill');
 
@@ -354,16 +325,18 @@ skillBars.forEach(function(bar) {
 });
 
 // ============================================
-// MODAL PROJET - PLEIN ÉCRAN
+// MODAL PROJET
 // ============================================
 function openProject(projectId) {
     const data = projectData[projectId];
     if (!data) return;
 
     const modal = document.getElementById('projectModal');
+    if (!modal) return;
+    
+    const modalImage = document.getElementById('modalImage');
     const modalTitle = document.getElementById('modalTitle');
     const modalDescription = document.getElementById('modalDescription');
-    const modalImage = document.getElementById('modalImage');
     const modalClient = document.getElementById('modalClient');
     const modalYear = document.getElementById('modalYear');
     const modalTech = document.getElementById('modalTech');
@@ -371,36 +344,34 @@ function openProject(projectId) {
     const modalLink = document.getElementById('modalLink');
     const tagsContainer = document.getElementById('modalTags');
 
-    modalTitle.textContent = data.title;
-    modalDescription.textContent = data.description;
-    modalImage.src = data.image;
-    modalImage.alt = data.title;
-    modalClient.textContent = data.client;
-    modalYear.textContent = data.year;
-    modalTech.textContent = data.tech;
-    modalCategory.textContent = data.category;
-    modalLink.href = data.link;
+    if (modalTitle) modalTitle.textContent = data.title;
+    if (modalDescription) modalDescription.textContent = data.description;
+    if (modalImage) {
+        modalImage.src = data.image;
+        modalImage.alt = data.title;
+    }
+    if (modalClient) modalClient.textContent = data.client;
+    if (modalYear) modalYear.textContent = data.year;
+    if (modalTech) modalTech.textContent = data.tech;
+    if (modalCategory) modalCategory.textContent = data.category;
+    if (modalLink) modalLink.href = data.link;
 
-    tagsContainer.innerHTML = data.tags.map(tag => `<span>${tag}</span>`).join('');
+    if (tagsContainer) {
+        tagsContainer.innerHTML = data.tags.map(tag => `<span>${tag}</span>`).join('');
+    }
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    modal.setAttribute('aria-hidden', 'false');
-    
-    setTimeout(() => {
-        const closeBtn = modal.querySelector('.modal-close');
-        if (closeBtn) closeBtn.focus();
-    }, 100);
 }
 
 function closeProject() {
     const modal = document.getElementById('projectModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-    modal.setAttribute('aria-hidden', 'true');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 }
 
-// Fermer avec la touche Escape
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         const modal = document.getElementById('projectModal');
@@ -410,18 +381,8 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Fermer en cliquant à l'extérieur du contenu
-const modalElement = document.getElementById('projectModal');
-if (modalElement) {
-    modalElement.addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeProject();
-        }
-    });
-}
-
 // ============================================
-// CARROUSEL AVIS - avec accessibilité
+// CARROUSEL AVIS
 // ============================================
 let currentSlide = 0;
 const track = document.getElementById('testimonialsTrack');
@@ -438,7 +399,6 @@ function goToSlide(index) {
     }
     dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === currentSlide);
-        dot.setAttribute('aria-current', i === currentSlide ? 'true' : 'false');
     });
 }
 
@@ -448,6 +408,7 @@ function nextSlide() {
 
 function startAutoPlay() {
     if (autoPlayInterval) clearInterval(autoPlayInterval);
+    if (!totalSlides) return;
     autoPlayInterval = setInterval(nextSlide, 6000);
 }
 
@@ -483,31 +444,21 @@ dots.forEach((dot, index) => {
         goToSlide(index);
         startAutoPlay();
     });
-    dot.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            stopAutoPlay();
-            goToSlide(index);
-            startAutoPlay();
-        }
-    });
 });
 
-// Pause au survol
 const carousel = document.querySelector('.testimonials-carousel');
 if (carousel) {
     carousel.addEventListener('mouseenter', stopAutoPlay);
     carousel.addEventListener('mouseleave', startAutoPlay);
 }
 
-// Démarrer le carrousel
 if (totalSlides > 0) {
     goToSlide(0);
     startAutoPlay();
 }
 
 // ============================================
-// FORMULAIRE DE CONTACT - avec validation améliorée
+// FORMULAIRE DE CONTACT
 // ============================================
 const contactForm = document.getElementById('contactForm');
 
@@ -525,7 +476,6 @@ if (contactForm) {
             return;
         }
 
-        // Validation email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             alert('Veuillez entrer une adresse email valide.');
@@ -552,7 +502,7 @@ if (contactForm) {
 }
 
 // ============================================
-// NEWSLETTER - avec validation
+// NEWSLETTER
 // ============================================
 const newsletterForm = document.getElementById('newsletterForm');
 if (newsletterForm) {
@@ -578,7 +528,7 @@ if (newsletterForm) {
 }
 
 // ============================================
-// SMOOTH SCROLL - amélioré avec accessibilité
+// SMOOTH SCROLL
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
     anchor.addEventListener('click', function(e) {
@@ -588,21 +538,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         if (target) {
             e.preventDefault();
             const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 70;
-            window.scrollTo({ 
-                top: offsetTop, 
-                behavior: 'smooth' 
-            });
-            
-            // Mettre à jour l'URL sans recharger
-            if (history.pushState) {
-                history.pushState(null, null, targetId);
-            }
-            
-            // Focus sur la cible pour l'accessibilité
-            setTimeout(function() {
-                target.setAttribute('tabindex', '-1');
-                target.focus({ preventScroll: true });
-            }, 500);
+            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
         }
     });
 });
@@ -616,16 +552,15 @@ if (prefersReducedMotion.matches) {
         el.classList.add('visible');
         el.style.transition = 'none';
     });
-    // Désactiver le slideshow
     stopHeroSlideshow();
     stopAutoPlay();
 }
 
 // ============================================
-// CONSOLE - Informations de développement
+// CONSOLE
 // ============================================
 console.log('🚀 Divin Ntwali · Designer & Développeur Full-Stack');
-console.log('📸 Portfolio optimisé - Performance, Accessibilité & SEO');
+console.log('⚡ Preloader ultra-rapide (2 secondes max)');
 console.log('🔗 Réseaux sociaux :');
 console.log('   • GitHub: https://github.com/divinntwali');
 console.log('   • LinkedIn: https://linkedin.com/in/divinntwali');
@@ -635,4 +570,3 @@ console.log('   • Facebook: https://www.facebook.com/DivinDesign');
 console.log('   • YouTube: https://www.youtube.com/@Divin_Design');
 console.log('   • TikTok: https://tiktok.com/@divinntwali20');
 console.log('📧 divinntwali119@gmail.com | 📱 +243 901 087 801');
-console.log('⚡ Temps de chargement réduit à 3 secondes');
