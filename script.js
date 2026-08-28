@@ -1,7 +1,7 @@
 /**
  * ============================================
  * DIVIN NTWALI - Portfolio JavaScript
- * Version: 2.0 (Optimisé pour accessibilité & performances)
+ * Version: 2.1 (Preloader 2 secondes)
  * ============================================
  */
 
@@ -9,34 +9,50 @@
     'use strict';
 
     // ============================================
-    // 1. PRELOADER
+    // 1. PRELOADER - 2 SECONDES EXACTEMENT
     // ============================================
     (function initPreloader() {
         const preloader = document.getElementById('preloader');
         const loaderFill = document.getElementById('loaderFill');
         const loaderPercent = document.getElementById('loaderPercent');
         let progress = 0;
+        const startTime = Date.now();
 
         function updateLoader() {
-            progress += Math.random() * 15 + 5;
-            if (progress > 100) progress = 100;
+            const elapsed = (Date.now() - startTime) / 1000;
+            
+            // Accélération progressive pour atteindre 100% en ~1.8s
+            let increment;
+            if (progress < 30) {
+                increment = Math.random() * 12 + 6;
+            } else if (progress < 60) {
+                increment = Math.random() * 16 + 8;
+            } else if (progress < 85) {
+                increment = Math.random() * 20 + 10;
+            } else {
+                increment = Math.random() * 6 + 2;
+            }
+            
+            progress = Math.min(progress + increment, 100);
             loaderFill.style.width = progress + '%';
             loaderPercent.textContent = Math.round(progress) + '%';
 
             if (progress < 100) {
-                setTimeout(updateLoader, 200 + Math.random() * 300);
+                const delay = Math.max(30, 200 - elapsed * 2);
+                setTimeout(updateLoader, delay + Math.random() * 80);
             } else {
+                // Temps minimum de 2 secondes
+                const remainingTime = Math.max(0, 2000 - (Date.now() - startTime));
                 setTimeout(function() {
                     preloader.classList.add('hidden');
                     document.body.style.overflow = '';
-                    // Émettre un événement pour indiquer que le chargement est terminé
                     document.dispatchEvent(new CustomEvent('preloader:complete'));
-                }, 400);
+                }, remainingTime);
             }
         }
 
         document.body.style.overflow = 'hidden';
-        setTimeout(updateLoader, 300);
+        setTimeout(updateLoader, 100);
     })();
 
     // ============================================
@@ -44,75 +60,75 @@
     // ============================================
     const projectData = {
         project1: {
-            title: 'Best Diversity Design Kit',
-            description: 'Une suite complète d\'outils design pour promouvoir la diversité et l\'inclusion dans les entreprises. Ce projet inclut un design system, des composants accessibles et des ressources pour faciliter la création de contenu inclusif.',
-            tags: ['Design System', 'Branding', 'UI/UX', 'Accessibilité'],
+            title: 'CENUMEP',
+            description: 'Un site dynamique pour la grande structure du cercle des étudiants de l\'université de Kinshasa. Plateforme complète de gestion et de communication pour les étudiants.',
+            tags: ['Design System', 'Branding', 'UI/UX', 'WordPress'],
             image: 'images/cenumep.png',
-            client: 'Nova Corp',
+            client: 'CENUMEP - UNIKIN',
             year: '2024',
-            tech: 'Figma, React, Storybook',
-            category: 'Design System',
-            link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20Best%20Diversity%20Design%20Kit'
+            tech: 'WordPress, Figma, Elementor, CSS3',
+            category: 'Site Web',
+            link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20CENUMEP'
         },
         project2: {
-            title: 'Filled Coffee Co.',
-            description: 'Rebranding complet pour une entreprise de café de spécialité. Une identité visuelle chaleureuse et authentique, avec un packaging design, une stratégie de marque et une expérience e-commerce immersive.',
-            tags: ['Brand Identity', 'Packaging', 'Art Direction', 'E-commerce'],
-            image: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=80',
-            client: 'Filled Coffee Co.',
-            year: '2023',
-            tech: 'Adobe Suite, Figma, Shopify',
-            category: 'Branding',
-            link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20Filled%20Coffee%20Co.'
+            title: 'Galaxy Food',
+            description: 'Site web de valorisation des cuisines kinoises. Découvrez les saveurs authentiques de Kinshasa à travers une expérience culinaire unique.',
+            tags: ['Brand Identity', 'Packaging', 'Art Direction', 'Web Design'],
+            image: 'images/Top Recettes Maison.jpeg',
+            client: 'Galaxy Food',
+            year: '2024',
+            tech: 'React, Tailwind CSS, Figma, Vercel',
+            category: 'Site Web Culinaire',
+            link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20Galaxy%20Food'
         },
         project3: {
-            title: 'Nova Scene',
-            description: 'Plateforme de création artistique immersive permettant aux artistes de collaborer et de partager leur travail. Une expérience utilisateur innovante avec des fonctionnalités de réalité augmentée et de communauté.',
-            tags: ['UI/UX', 'Web Design', 'Prototype', 'AR/VR'],
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
-            client: 'Studio Nova',
+            title: 'Explorer Kinshasa',
+            description: 'Plateforme de valorisation des sites touristiques dans la ville de Kinshasa. Découvrez les merveilles cachées de la capitale congolaise.',
+            tags: ['UI/UX', 'Web Design', 'Prototype', 'Tourisme'],
+            image: 'images/Kinshasa.jpeg',
+            client: 'Office du Tourisme de Kinshasa',
             year: '2024',
-            tech: 'React, Three.js, Figma, Firebase',
-            category: 'Application Web',
-            link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20Nova%20Scene'
+            tech: 'Next.js, TypeScript, Tailwind, Mapbox, Figma',
+            category: 'Application Web Touristique',
+            link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20Explorer%20Kinshasa'
         },
         project4: {
-            title: 'EcoTrack Dashboard',
-            description: 'Tableau de bord interactif pour le suivi des émissions carbone des entreprises. Visualisation de données en temps réel avec des graphiques personnalisés.',
+            title: 'Tableau de bord',
+            description: 'Tableau de bord interactif pour le suivi des émissions carbone des entreprises en temps réel. Visualisation avancée des données environnementales.',
             tags: ['Data Viz', 'Dashboard', 'React', 'D3.js'],
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
+            image: 'images/tableau de bord.jpeg',
             client: 'GreenTech Inc.',
             year: '2024',
-            tech: 'React, D3.js, Firebase',
-            category: 'Dashboard',
-            link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20EcoTrack'
+            tech: 'React, D3.js, Firebase, Chart.js, Tailwind',
+            category: 'Dashboard Data',
+            link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20Tableau%20de%20bord'
         },
         project5: {
             title: 'Art Gallery App',
-            description: 'Application mobile pour découvrir des œuvres d\'art en réalité augmentée. Les utilisateurs peuvent visualiser les œuvres dans leur espace réel.',
+            description: 'Application mobile pour découvrir des œuvres d\'art en réalité augmentée dans votre espace réel. Une expérience immersive unique.',
             tags: ['AR/VR', 'Mobile', 'React Native', 'Art'],
-            image: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=80',
+            image: 'images/art galery.jpeg',
             client: 'Museum of Modern Art',
-            year: '2023',
-            tech: 'React Native, ARKit, Firebase',
-            category: 'Mobile',
-            link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20Art%20Gallery'
+            year: '2024',
+            tech: 'React Native, ARKit, Firebase, Expo, Three.js',
+            category: 'Application Mobile AR',
+            link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20Art%20Gallery%20App'
         },
         project6: {
             title: 'Portfolio Pro',
-            description: 'Plateforme de création de portfolio pour designers et photographes. Personnalisation avancée, animations fluides et intégration avec des galeries d\'images.',
+            description: 'Plateforme de création de portfolio pour designers et photographes avec animations fluides. Personnalisation avancée et intégration CMS.',
             tags: ['Portfolio', 'Web Design', 'Next.js', 'CMS'],
-            image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80',
+            image: 'images/divin_portfolio.jpg',
             client: 'DesignHub',
             year: '2024',
-            tech: 'Next.js, Tailwind, Sanity',
-            category: 'Web',
+            tech: 'Next.js, Tailwind, Sanity, Framer Motion, TypeScript',
+            category: 'Portfolio CMS',
             link: 'https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20Portfolio%20Pro'
         }
     };
 
     // ============================================
-    // 3. THEME TOGGLE (clair/sombre)
+    // 3. THEME TOGGLE
     // ============================================
     (function initTheme() {
         const themeToggle = document.getElementById('themeToggle');
@@ -134,8 +150,6 @@
                     '<i class="fas fa-moon" aria-hidden="true"></i> Mode clair';
             }
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
-
-            // Émettre un événement pour les autres composants
             document.dispatchEvent(new CustomEvent('theme:change', { detail: { isLight } }));
         }
 
@@ -144,12 +158,10 @@
             setTheme(isLight);
         }
 
-        // Appliquer le thème sauvegardé
         if (savedTheme === 'light') {
             setTheme(true);
         }
 
-        // Écouteurs d'événements
         if (themeToggle) {
             themeToggle.addEventListener('click', toggleTheme);
             themeToggle.addEventListener('keydown', function(e) {
@@ -222,10 +234,8 @@
             startHeroSlideshow();
         }
 
-        // Initialisation
         goToHeroSlide(0);
 
-        // Écouteurs pour les indicateurs
         heroIndicators.forEach(function(indicator, index) {
             indicator.addEventListener('click', function() {
                 stopHeroSlideshow();
@@ -243,7 +253,6 @@
             });
         });
 
-        // Pause au survol pour l'accessibilité
         const heroContainer = document.querySelector('.hero-slideshow');
         if (heroContainer) {
             heroContainer.addEventListener('mouseenter', pauseHeroSlideshow);
@@ -252,10 +261,8 @@
             heroContainer.addEventListener('focusout', resumeHeroSlideshow);
         }
 
-        // Démarrer le slideshow
         startHeroSlideshow();
 
-        // Nettoyer l'intervalle si la page est cachée (performance)
         document.addEventListener('visibilitychange', function() {
             if (document.hidden) {
                 stopHeroSlideshow();
@@ -264,7 +271,6 @@
             }
         });
 
-        // Exposer l'API pour les tests
         window.heroSlideshow = {
             goTo: goToHeroSlide,
             next: nextHeroSlide,
@@ -286,7 +292,6 @@
         let menuOpen = false;
         let scrollTimeout = null;
 
-        // Gestion du scroll
         function handleScroll() {
             if (scrollTimeout) {
                 cancelAnimationFrame(scrollTimeout);
@@ -299,18 +304,15 @@
 
         window.addEventListener('scroll', handleScroll, { passive: true });
 
-        // Fonction pour ouvrir/fermer le menu
         function toggleMobileMenu() {
             menuOpen = !menuOpen;
             mobileMenu.classList.toggle('active', menuOpen);
             menuToggle.classList.toggle('active', menuOpen);
 
-            // Accessibilité
             menuToggle.setAttribute('aria-expanded', menuOpen);
             document.body.style.overflow = menuOpen ? 'hidden' : '';
 
             if (menuOpen) {
-                // Focus sur le premier élément du menu
                 const firstLink = mobileMenu.querySelector('a:not(.btn-primary)');
                 if (firstLink) {
                     setTimeout(function() {
@@ -322,7 +324,6 @@
             }
         }
 
-        // Écouteurs
         if (menuToggle) {
             menuToggle.addEventListener('click', toggleMobileMenu);
             menuToggle.addEventListener('keydown', function(e) {
@@ -337,7 +338,6 @@
             closeMenu.addEventListener('click', toggleMobileMenu);
         }
 
-        // Fermer le menu en cliquant sur un lien
         document.querySelectorAll('.mobile-menu a').forEach(function(link) {
             link.addEventListener('click', function() {
                 if (menuOpen) {
@@ -346,14 +346,12 @@
             });
         });
 
-        // Fermer le menu avec la touche Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && menuOpen) {
                 toggleMobileMenu();
             }
         });
 
-        // Exposer l'API
         window.mobileMenu = {
             open: function() { if (!menuOpen) toggleMobileMenu(); },
             close: function() { if (menuOpen) toggleMobileMenu(); },
@@ -401,7 +399,7 @@
     })();
 
     // ============================================
-    // 7. SCROLL ANIMATIONS (Intersection Observer)
+    // 7. SCROLL ANIMATIONS
     // ============================================
     (function initScrollAnimations() {
         const animatedElements = document.querySelectorAll('.animate-on-scroll');
@@ -411,7 +409,6 @@
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        // Une fois visible, on arrête de l'observer pour les performances
                         observer.unobserve(entry.target);
                     }
                 });
@@ -424,7 +421,6 @@
                 observer.observe(el);
             });
         } else {
-            // Fallback pour les navigateurs anciens
             animatedElements.forEach(function(el) {
                 el.classList.add('visible');
             });
@@ -432,7 +428,7 @@
     })();
 
     // ============================================
-    // 8. SKILLS BARRES DE PROGRESSION
+    // 8. SKILLS BARRES
     // ============================================
     (function initSkillBars() {
         const skillBars = document.querySelectorAll('.skill-bar-fill');
@@ -454,7 +450,6 @@
                 observer.observe(bar);
             });
         } else {
-            // Fallback
             skillBars.forEach(function(bar) {
                 bar.classList.add('animated');
             });
@@ -471,16 +466,18 @@
 
         function openProject(projectId) {
             const data = projectData[projectId];
-            if (!data) return;
+            if (!data) {
+                console.warn('Projet non trouvé:', projectId);
+                return;
+            }
 
-            // Sauvegarder l'élément qui avait le focus
             lastFocusedElement = document.activeElement;
 
-            // Remplir la modale
             document.getElementById('modalTitle').textContent = data.title;
             document.getElementById('modalDescription').textContent = data.description;
             document.getElementById('modalImage').src = data.image;
             document.getElementById('modalImage').alt = data.title + ' - ' + data.category;
+
             document.getElementById('modalClient').textContent = data.client;
             document.getElementById('modalYear').textContent = data.year;
             document.getElementById('modalTech').textContent = data.tech;
@@ -495,16 +492,13 @@
                 return '<span>' + tag + '</span>';
             }).join('');
 
-            // Ouvrir la modale
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // Focus sur la modale
             setTimeout(function() {
                 modal.focus();
             }, 100);
 
-            // Émettre un événement
             document.dispatchEvent(new CustomEvent('modal:open', { detail: { projectId } }));
         }
 
@@ -512,7 +506,6 @@
             modal.classList.remove('active');
             document.body.style.overflow = '';
 
-            // Restaurer le focus
             if (lastFocusedElement) {
                 setTimeout(function() {
                     lastFocusedElement.focus();
@@ -523,43 +516,41 @@
             document.dispatchEvent(new CustomEvent('modal:close'));
         }
 
-        // Exposer les fonctions globalement
         window.openProject = openProject;
         window.closeProject = closeProject;
 
-        // Écouteurs
         if (modalClose) {
             modalClose.addEventListener('click', closeProject);
         }
 
-        // Fermer avec la touche Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && modal.classList.contains('active')) {
                 closeProject();
             }
         });
 
-        // Fermer en cliquant sur l'arrière-plan
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
                 closeProject();
             }
         });
 
-        // Support des liens projet (sécurité)
         document.querySelectorAll('.project-link').forEach(function(link) {
             link.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    const projectId = this.closest('.project-card').getAttribute('data-project');
-                    if (projectId) openProject(projectId);
+                    const card = this.closest('.project-card');
+                    if (card) {
+                        const projectId = card.getAttribute('data-project');
+                        if (projectId) openProject(projectId);
+                    }
                 }
             });
         });
     })();
 
     // ============================================
-    // 10. CARROUSEL AVIS CLIENTS
+    // 10. CARROUSEL AVIS
     // ============================================
     (function initTestimonialsCarousel() {
         const track = document.getElementById('testimonialsTrack');
@@ -585,9 +576,12 @@
                 dot.setAttribute('aria-selected', i === currentSlide);
             });
 
-            // Mettre à jour les labels ARIA
-            prevButton.setAttribute('aria-label', 'Témoignage précédent (' + (currentSlide + 1) + '/' + totalSlides + ')');
-            nextButton.setAttribute('aria-label', 'Témoignage suivant (' + (currentSlide + 1) + '/' + totalSlides + ')');
+            if (prevButton) {
+                prevButton.setAttribute('aria-label', 'Témoignage précédent (' + (currentSlide + 1) + '/' + totalSlides + ')');
+            }
+            if (nextButton) {
+                nextButton.setAttribute('aria-label', 'Témoignage suivant (' + (currentSlide + 1) + '/' + totalSlides + ')');
+            }
         }
 
         function nextSlide() {
@@ -620,7 +614,6 @@
             startAutoPlay();
         }
 
-        // Écouteurs
         if (prevButton) {
             prevButton.addEventListener('click', function() {
                 stopAutoPlay();
@@ -654,7 +647,6 @@
             });
         });
 
-        // Pause au survol
         const carousel = document.querySelector('.testimonials-carousel');
         if (carousel) {
             carousel.addEventListener('mouseenter', pauseAutoPlay);
@@ -663,11 +655,9 @@
             carousel.addEventListener('focusout', resumeAutoPlay);
         }
 
-        // Démarrer
         goToSlide(0);
         startAutoPlay();
 
-        // Exposer l'API
         window.testimonials = {
             goTo: goToSlide,
             next: nextSlide,
@@ -692,7 +682,6 @@
             const email = document.getElementById('email').value.trim();
             const message = document.getElementById('message').value.trim();
 
-            // Validation accessible
             let hasError = false;
             const fields = [
                 { id: 'name', value: name, label: 'Nom' },
@@ -713,7 +702,6 @@
             });
 
             if (hasError) {
-                // Créer un message d'erreur accessible
                 let errorMessage = document.getElementById('form-error');
                 if (!errorMessage) {
                     errorMessage = document.createElement('div');
@@ -743,7 +731,6 @@
                 btn.disabled = false;
                 contactForm.reset();
 
-                // Message de confirmation accessible
                 const successMessage = document.createElement('div');
                 successMessage.setAttribute('role', 'status');
                 successMessage.setAttribute('aria-live', 'polite');
@@ -758,7 +745,6 @@
             }, 500);
         });
 
-        // Valider en temps réel pour l'accessibilité
         document.querySelectorAll('#contactForm input, #contactForm textarea').forEach(function(input) {
             input.addEventListener('blur', function() {
                 if (this.hasAttribute('required') && !this.value.trim()) {
@@ -788,7 +774,6 @@
             const input = this.querySelector('input[type="email"]');
 
             if (input && input.value.trim()) {
-                // Message de confirmation accessible
                 const successMessage = document.createElement('div');
                 successMessage.setAttribute('role', 'status');
                 successMessage.setAttribute('aria-live', 'polite');
@@ -807,7 +792,7 @@
     })();
 
     // ============================================
-    // 13. SMOOTH SCROLL (amélioré)
+    // 13. SMOOTH SCROLL
     // ============================================
     (function initSmoothScroll() {
         document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
@@ -825,12 +810,10 @@
                     const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 70;
                     window.scrollTo({ top: offsetTop, behavior: 'smooth' });
 
-                    // Mettre à jour l'URL pour l'accessibilité
                     if (history.pushState) {
                         history.pushState(null, null, targetId);
                     }
 
-                    // Focus sur la section cible pour les lecteurs d'écran
                     setTimeout(function() {
                         target.setAttribute('tabindex', '-1');
                         target.focus({ preventScroll: true });
@@ -841,13 +824,11 @@
     })();
 
     // ============================================
-    // 14. GESTION DES TÂCHES LONGUES (performance)
+    // 14. OPTIMISATION PERFORMANCES
     // ============================================
     (function optimizePerformance() {
-        // Utiliser requestIdleCallback pour les tâches non critiques
         if ('requestIdleCallback' in window) {
             requestIdleCallback(function() {
-                // Chargement différé des images hors écran
                 const images = document.querySelectorAll('img[loading="lazy"]');
                 if ('IntersectionObserver' in window) {
                     const imageObserver = new IntersectionObserver(function(entries) {
@@ -868,26 +849,21 @@
             }, { timeout: 2000 });
         }
 
-        // Réduire le travail du thread principal
         document.addEventListener('DOMContentLoaded', function() {
-            // Débouncer les événements de resize
             let resizeTimeout;
             window.addEventListener('resize', function() {
                 if (resizeTimeout) {
                     cancelAnimationFrame(resizeTimeout);
                 }
-                resizeTimeout = requestAnimationFrame(function() {
-                    // Les mises à jour de layout ici
-                });
+                resizeTimeout = requestAnimationFrame(function() {});
             }, { passive: true });
         });
     })();
 
     // ============================================
-    // 15. ACCESSIBILITÉ : GESTION DU FOCUS
+    // 15. GESTION DU FOCUS
     // ============================================
     (function initFocusManagement() {
-        // S'assurer que tous les éléments interactifs ont un focus visible
         document.addEventListener('focusin', function(e) {
             if (e.target.matches('a, button, input, textarea, select, [tabindex]')) {
                 e.target.style.outline = '3px solid var(--primary)';
@@ -904,11 +880,11 @@
     })();
 
     // ============================================
-    // 16. CONSOLE (informations)
+    // 16. CONSOLE
     // ============================================
     (function showConsoleInfo() {
         console.log('%c🚀 Divin Ntwali · Designer & Développeur Full-Stack', 'font-size: 18px; font-weight: bold; color: #dc2626;');
-        console.log('%c📸 Galerie - Section la plus visuelle du site', 'font-size: 14px; color: #a3a3a3;');
+        console.log('%c📂 Projets mis à jour : CENUMEP, Galaxy Food, Explorer Kinshasa, Tableau de bord, Art Gallery App, Portfolio Pro', 'font-size: 14px; color: #a3a3a3;');
         console.log('%c🔗 Réseaux sociaux :', 'font-size: 14px; color: #a3a3a3;');
         console.log('   • GitHub: https://github.com/divinntwali');
         console.log('   • LinkedIn: https://linkedin.com/in/divinntwali');
@@ -919,24 +895,8 @@
         console.log('   • TikTok: https://tiktok.com/@divinntwali20');
         console.log('%c📧 divinntwali119@gmail.com | 📱 +243 901 087 801', 'font-size: 14px; color: #a3a3a3;');
         console.log('%c♿ Accessibilité : 100%', 'font-size: 14px; color: #22c55e;');
-        console.log('%c⚡ Performances : optimisées', 'font-size: 14px; color: #22c55e;');
+        console.log('%c⚡ Preloader : 2 secondes', 'font-size: 14px; color: #22c55e;');
         console.log('%c🛠️ Maintenance : 95%+', 'font-size: 14px; color: #22c55e;');
     })();
-
-    // ============================================
-    // 17. SERVICE WORKER (optionnel pour PWA)
-    // ============================================
-    // Décommenter pour activer le Service Worker
-    /*
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                console.log('ServiceWorker registration successful');
-            }).catch(function(err) {
-                console.log('ServiceWorker registration failed: ', err);
-            });
-        });
-    }
-    */
 
 })();
