@@ -1,30 +1,52 @@
 // ============================================
-// PRELOADER
+// PRELOADER - Temps de chargement réduit à 3s max
 // ============================================
 (function() {
     const preloader = document.getElementById('preloader');
     const loaderFill = document.getElementById('loaderFill');
     const loaderPercent = document.getElementById('loaderPercent');
     let progress = 0;
+    let startTime = Date.now();
+    const maxDuration = 3000; // 3 secondes maximum
 
     function updateLoader() {
-        progress += Math.random() * 15 + 5;
+        const elapsed = Date.now() - startTime;
+        
+        // Accélérer la progression si on approche de la limite
+        let increment;
+        if (elapsed > maxDuration * 0.7) {
+            increment = Math.random() * 25 + 10;
+        } else {
+            increment = Math.random() * 12 + 3;
+        }
+        
+        progress += increment;
         if (progress > 100) progress = 100;
+        
         loaderFill.style.width = progress + '%';
         loaderPercent.textContent = Math.round(progress) + '%';
 
-        if (progress < 100) {
-            setTimeout(updateLoader, 200 + Math.random() * 300);
+        if (progress < 100 && elapsed < maxDuration) {
+            const delay = Math.random() * 100 + 50;
+            setTimeout(updateLoader, delay);
         } else {
+            // Forcer la fin après 3 secondes max
             setTimeout(function() {
-                preloader.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 400);
+                loaderFill.style.width = '100%';
+                loaderPercent.textContent = '100%';
+                setTimeout(function() {
+                    preloader.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    // Focus sur le contenu principal
+                    const main = document.querySelector('main');
+                    if (main) main.focus();
+                }, 300);
+            }, Math.max(0, maxDuration - elapsed));
         }
     }
 
     document.body.style.overflow = 'hidden';
-    setTimeout(updateLoader, 300);
+    setTimeout(updateLoader, 200);
 })();
 
 // ============================================
@@ -100,7 +122,7 @@ const projectData = {
 };
 
 // ============================================
-// THEME TOGGLE
+// THEME TOGGLE - avec sauvegarde localStorage
 // ============================================
 function toggleTheme() {
     document.body.classList.toggle('light-mode');
@@ -117,6 +139,7 @@ function toggleTheme() {
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
 
+// Charger le thème sauvegardé
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
     document.body.classList.add('light-mode');
@@ -129,19 +152,29 @@ document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 document.getElementById('themeToggleMobile').addEventListener('click', toggleTheme);
 
 // ============================================
-// HERO SLIDESHOW
+// HERO SLIDESHOW - avec gestion d'accessibilité
 // ============================================
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroIndicators = document.querySelectorAll('.hero-indicator');
 let heroCurrentSlide = 0;
-let heroInterval;
+let heroInterval = null;
 
 function goToHeroSlide(index) {
-    heroSlides.forEach(slide => slide.classList.remove('active'));
+    heroSlides.forEach(slide => {
+        slide.classList.remove('active');
+        slide.setAttribute('aria-hidden', 'true');
+    });
     heroIndicators.forEach(ind => ind.classList.remove('active'));
+    
     heroSlides[index].classList.add('active');
+    heroSlides[index].setAttribute('aria-hidden', 'false');
     heroIndicators[index].classList.add('active');
     heroCurrentSlide = index;
+    
+    heroIndicators.forEach((ind, i) => {
+        ind.setAttribute('aria-label', `Image ${i + 1} sur ${heroSlides.length}`);
+        ind.setAttribute('aria-current', i === index ? 'true' : 'false');
+    });
 }
 
 function nextHeroSlide() {
@@ -150,18 +183,31 @@ function nextHeroSlide() {
 }
 
 function startHeroSlideshow() {
+    if (heroInterval) clearInterval(heroInterval);
     heroInterval = setInterval(nextHeroSlide, 5500);
 }
 
 function stopHeroSlideshow() {
-    clearInterval(heroInterval);
+    if (heroInterval) {
+        clearInterval(heroInterval);
+        heroInterval = null;
+    }
 }
 
+// Initialisation des indicateurs
 heroIndicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', () => {
+    indicator.addEventListener('click', function() {
         stopHeroSlideshow();
         goToHeroSlide(index);
         startHeroSlideshow();
+    });
+    indicator.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            stopHeroSlideshow();
+            goToHeroSlide(index);
+            startHeroSlideshow();
+        }
     });
 });
 
@@ -171,7 +217,11 @@ if (heroContainer) {
     heroContainer.addEventListener('mouseleave', startHeroSlideshow);
 }
 
-startHeroSlideshow();
+// Démarrer le slideshow
+if (heroSlides.length > 0) {
+    goToHeroSlide(0);
+    startHeroSlideshow();
+}
 
 // ============================================
 // NAVBAR & MENU MOBILE
@@ -182,52 +232,90 @@ const mobileMenu = document.getElementById('mobileMenu');
 const closeMenu = document.getElementById('closeMenu');
 let menuOpen = false;
 
+// Gestion du scroll pour la navbar avec passive
+let scrollTimeout = false;
 window.addEventListener('scroll', function() {
-    navbar.classList.toggle('scrolled', window.scrollY > 30);
-});
+    if (!scrollTimeout) {
+        scrollTimeout = true;
+        requestAnimationFrame(function() {
+            navbar.classList.toggle('scrolled', window.scrollY > 30);
+            scrollTimeout = false;
+        });
+    }
+}, { passive: true });
 
 function toggleMobileMenu() {
     menuOpen = !menuOpen;
     mobileMenu.classList.toggle('active', menuOpen);
     menuToggle.classList.toggle('active', menuOpen);
     document.body.style.overflow = menuOpen ? 'hidden' : '';
+    
+    if (menuOpen) {
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        setTimeout(() => {
+            const firstLink = mobileMenu.querySelector('a');
+            if (firstLink) firstLink.focus();
+        }, 100);
+    } else {
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        menuToggle.focus();
+    }
 }
 
 menuToggle.addEventListener('click', toggleMobileMenu);
 closeMenu.addEventListener('click', toggleMobileMenu);
 
+// Fermer le menu avec la touche Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && menuOpen) {
+        toggleMobileMenu();
+    }
+});
+
+// Fermer le menu en cliquant sur un lien
 document.querySelectorAll('.mobile-menu a').forEach(function(link) {
     link.addEventListener('click', function() {
-        mobileMenu.classList.remove('active');
-        menuOpen = false;
-        menuToggle.classList.remove('active');
-        document.body.style.overflow = '';
+        if (menuOpen) {
+            mobileMenu.classList.remove('active');
+            menuOpen = false;
+            menuToggle.classList.remove('active');
+            document.body.style.overflow = '';
+            mobileMenu.setAttribute('aria-hidden', 'true');
+        }
     });
 });
 
 // ============================================
-// ACTIVE NAV LINK
+// ACTIVE NAV LINK - avec debounce
 // ============================================
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a:not(.btn-primary)');
 
+let navTimeout = null;
 window.addEventListener('scroll', function() {
-    let current = '';
-    sections.forEach(function(section) {
-        const sectionTop = section.offsetTop - 120;
-        if (window.scrollY >= sectionTop) {
-            current = section.getAttribute('id');
-        }
-    });
+    if (navTimeout) return;
+    navTimeout = setTimeout(() => {
+        let current = '';
+        sections.forEach(function(section) {
+            const sectionTop = section.offsetTop - 120;
+            if (window.scrollY >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
 
-    navLinks.forEach(function(link) {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-        link.style.color = link.getAttribute('href') === '#' + current ? 'var(--text-color)' : 'var(--text-secondary-color)';
-    });
-});
+        navLinks.forEach(function(link) {
+            const href = link.getAttribute('href');
+            const isActive = href === '#' + current;
+            link.classList.toggle('active', isActive);
+            link.style.color = isActive ? 'var(--text-color)' : 'var(--text-secondary-color)';
+            link.setAttribute('aria-current', isActive ? 'page' : 'false');
+        });
+        navTimeout = null;
+    }, 100);
+}, { passive: true });
 
 // ============================================
-// SCROLL ANIMATIONS
+// SCROLL ANIMATIONS - avec Intersection Observer
 // ============================================
 const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
@@ -235,6 +323,7 @@ const observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
         }
     });
 }, {
@@ -247,7 +336,7 @@ animatedElements.forEach(function(el) {
 });
 
 // ============================================
-// SKILLS BARRES
+// SKILLS BARRES - avec Intersection Observer
 // ============================================
 const skillBars = document.querySelectorAll('.skill-bar-fill');
 
@@ -255,6 +344,7 @@ const skillObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
         if (entry.isIntersecting) {
             entry.target.classList.add('animated');
+            skillObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.3 });
@@ -270,113 +360,225 @@ function openProject(projectId) {
     const data = projectData[projectId];
     if (!data) return;
 
-    document.getElementById('modalTitle').textContent = data.title;
-    document.getElementById('modalDescription').textContent = data.description;
-    document.getElementById('modalImage').src = data.image;
-    document.getElementById('modalClient').textContent = data.client;
-    document.getElementById('modalYear').textContent = data.year;
-    document.getElementById('modalTech').textContent = data.tech;
-    document.getElementById('modalCategory').textContent = data.category;
-    document.getElementById('modalLink').href = data.link;
-
+    const modal = document.getElementById('projectModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalImage = document.getElementById('modalImage');
+    const modalClient = document.getElementById('modalClient');
+    const modalYear = document.getElementById('modalYear');
+    const modalTech = document.getElementById('modalTech');
+    const modalCategory = document.getElementById('modalCategory');
+    const modalLink = document.getElementById('modalLink');
     const tagsContainer = document.getElementById('modalTags');
+
+    modalTitle.textContent = data.title;
+    modalDescription.textContent = data.description;
+    modalImage.src = data.image;
+    modalImage.alt = data.title;
+    modalClient.textContent = data.client;
+    modalYear.textContent = data.year;
+    modalTech.textContent = data.tech;
+    modalCategory.textContent = data.category;
+    modalLink.href = data.link;
+
     tagsContainer.innerHTML = data.tags.map(tag => `<span>${tag}</span>`).join('');
 
-    document.getElementById('projectModal').classList.add('active');
+    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    modal.setAttribute('aria-hidden', 'false');
+    
+    setTimeout(() => {
+        const closeBtn = modal.querySelector('.modal-close');
+        if (closeBtn) closeBtn.focus();
+    }, 100);
 }
 
 function closeProject() {
-    document.getElementById('projectModal').classList.remove('active');
+    const modal = document.getElementById('projectModal');
+    modal.classList.remove('active');
     document.body.style.overflow = '';
+    modal.setAttribute('aria-hidden', 'true');
 }
 
+// Fermer avec la touche Escape
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeProject();
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('projectModal');
+        if (modal && modal.classList.contains('active')) {
+            closeProject();
+        }
+    }
 });
 
+// Fermer en cliquant à l'extérieur du contenu
+const modalElement = document.getElementById('projectModal');
+if (modalElement) {
+    modalElement.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeProject();
+        }
+    });
+}
+
 // ============================================
-// CARROUSEL AVIS
+// CARROUSEL AVIS - avec accessibilité
 // ============================================
 let currentSlide = 0;
 const track = document.getElementById('testimonialsTrack');
 const dots = document.querySelectorAll('.dot');
 const totalSlides = dots.length;
+let autoPlayInterval = null;
 
 function goToSlide(index) {
     if (index < 0) index = totalSlides - 1;
     if (index >= totalSlides) index = 0;
     currentSlide = index;
-    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    if (track) {
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
     dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === currentSlide);
+        dot.setAttribute('aria-current', i === currentSlide ? 'true' : 'false');
     });
 }
 
-document.getElementById('prevTestimonial').addEventListener('click', () => goToSlide(currentSlide - 1));
-document.getElementById('nextTestimonial').addEventListener('click', () => goToSlide(currentSlide + 1));
+function nextSlide() {
+    goToSlide(currentSlide + 1);
+}
+
+function startAutoPlay() {
+    if (autoPlayInterval) clearInterval(autoPlayInterval);
+    autoPlayInterval = setInterval(nextSlide, 6000);
+}
+
+function stopAutoPlay() {
+    if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
+    }
+}
+
+const prevBtn = document.getElementById('prevTestimonial');
+const nextBtn = document.getElementById('nextTestimonial');
+
+if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+        stopAutoPlay();
+        goToSlide(currentSlide - 1);
+        startAutoPlay();
+    });
+}
+
+if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+        stopAutoPlay();
+        goToSlide(currentSlide + 1);
+        startAutoPlay();
+    });
+}
 
 dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => goToSlide(index));
+    dot.addEventListener('click', function() {
+        stopAutoPlay();
+        goToSlide(index);
+        startAutoPlay();
+    });
+    dot.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            stopAutoPlay();
+            goToSlide(index);
+            startAutoPlay();
+        }
+    });
 });
 
-let autoPlay = setInterval(() => goToSlide(currentSlide + 1), 6000);
+// Pause au survol
 const carousel = document.querySelector('.testimonials-carousel');
-carousel.addEventListener('mouseenter', () => clearInterval(autoPlay));
-carousel.addEventListener('mouseleave', () => {
-    autoPlay = setInterval(() => goToSlide(currentSlide + 1), 6000);
-});
+if (carousel) {
+    carousel.addEventListener('mouseenter', stopAutoPlay);
+    carousel.addEventListener('mouseleave', startAutoPlay);
+}
+
+// Démarrer le carrousel
+if (totalSlides > 0) {
+    goToSlide(0);
+    startAutoPlay();
+}
 
 // ============================================
-// FORMULAIRE DE CONTACT
+// FORMULAIRE DE CONTACT - avec validation améliorée
 // ============================================
 const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        const subject = document.getElementById('subject').value.trim() || 'Demande de projet';
 
-    if (!name || !email || !message) {
-        alert('Veuillez remplir tous les champs obligatoires.');
-        return;
-    }
+        if (!name || !email || !message) {
+            alert('Veuillez remplir tous les champs obligatoires.');
+            return;
+        }
 
-    const btn = contactForm.querySelector('.btn-primary');
-    const originalHTML = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
-    btn.disabled = true;
+        // Validation email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Veuillez entrer une adresse email valide.');
+            return;
+        }
 
-    const subject = document.getElementById('subject').value.trim() || 'Demande de projet';
-    const mailtoLink = `mailto:divinntwali119@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        `Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-    )}`;
+        const btn = contactForm.querySelector('.btn-primary');
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+        btn.disabled = true;
 
-    setTimeout(function() {
-        window.location.href = mailtoLink;
-        btn.innerHTML = originalHTML;
-        btn.disabled = false;
-        contactForm.reset();
-        alert('✅ Votre message a été préparé. Veuillez confirmer l\'envoi par email.');
-    }, 500);
-});
+        const mailtoLink = `mailto:divinntwali119@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+            `Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+        )}`;
+
+        setTimeout(function() {
+            window.location.href = mailtoLink;
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+            contactForm.reset();
+            alert('✅ Votre message a été préparé. Veuillez confirmer l\'envoi par email.');
+        }, 500);
+    });
+}
 
 // ============================================
-// NEWSLETTER
+// NEWSLETTER - avec validation
 // ============================================
-document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const input = this.querySelector('input');
-    if (input.value.trim()) {
+const newsletterForm = document.getElementById('newsletterForm');
+if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const input = this.querySelector('input');
+        const email = input.value.trim();
+        
+        if (!email) {
+            alert('Veuillez entrer votre adresse email.');
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Veuillez entrer une adresse email valide.');
+            return;
+        }
+        
         alert('✅ Merci pour votre abonnement ! Vous recevrez bientôt nos actualités.');
         input.value = '';
-    }
-});
+    });
+}
 
 // ============================================
-// SMOOTH SCROLL
+// SMOOTH SCROLL - amélioré avec accessibilité
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
     anchor.addEventListener('click', function(e) {
@@ -386,16 +588,44 @@ document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         if (target) {
             e.preventDefault();
             const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 70;
-            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+            window.scrollTo({ 
+                top: offsetTop, 
+                behavior: 'smooth' 
+            });
+            
+            // Mettre à jour l'URL sans recharger
+            if (history.pushState) {
+                history.pushState(null, null, targetId);
+            }
+            
+            // Focus sur la cible pour l'accessibilité
+            setTimeout(function() {
+                target.setAttribute('tabindex', '-1');
+                target.focus({ preventScroll: true });
+            }, 500);
         }
     });
 });
 
 // ============================================
-// CONSOLE - Avec vos vrais réseaux sociaux
+// PERFORMANCE - Désactiver les animations pour les utilisateurs qui préfèrent réduire les mouvements
+// ============================================
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+if (prefersReducedMotion.matches) {
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        el.classList.add('visible');
+        el.style.transition = 'none';
+    });
+    // Désactiver le slideshow
+    stopHeroSlideshow();
+    stopAutoPlay();
+}
+
+// ============================================
+// CONSOLE - Informations de développement
 // ============================================
 console.log('🚀 Divin Ntwali · Designer & Développeur Full-Stack');
-console.log('📸 Galerie ajoutée - la section la plus visuelle du site');
+console.log('📸 Portfolio optimisé - Performance, Accessibilité & SEO');
 console.log('🔗 Réseaux sociaux :');
 console.log('   • GitHub: https://github.com/divinntwali');
 console.log('   • LinkedIn: https://linkedin.com/in/divinntwali');
@@ -405,3 +635,4 @@ console.log('   • Facebook: https://www.facebook.com/DivinDesign');
 console.log('   • YouTube: https://www.youtube.com/@Divin_Design');
 console.log('   • TikTok: https://tiktok.com/@divinntwali20');
 console.log('📧 divinntwali119@gmail.com | 📱 +243 901 087 801');
+console.log('⚡ Temps de chargement réduit à 3 secondes');

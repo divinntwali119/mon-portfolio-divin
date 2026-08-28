@@ -2,20 +2,24 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <!-- Suppression de user-scalable=no pour améliorer l'accessibilité -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Divin Ntwali · Designer & Développeur</title>
+    
+    <!-- ===== META DESCRIPTION pour le SEO ===== -->
+    <meta name="description" content="Portfolio de Divin Ntwali - Designer UI/UX & Développeur Full-Stack. Création d'expériences numériques sur mesure, design d'interface et développement web." />
+    <meta name="theme-color" content="#0a0a0a" />
 
-    <!-- ===== FAVICON ROND - Solution fiable ===== -->
-    <!-- Option 1 : Utiliser une image PNG carrée (recommandé) -->
+    <!-- ===== FAVICON ROND ===== -->
     <link rel="icon" type="image/png" sizes="512x512" href="images/favicon.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="images/favicon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png" />
     <link rel="apple-touch-icon" href="images/favicon.png" />
-
-    <!-- Option 2 : Fallback sur photo.jpg si favicon.png n'existe pas -->
     <link rel="icon" type="image/jpeg" href="images/photo.jpg" />
 
-    <!-- Fonts : Inter + Space Grotesk -->
+    <!-- ===== POLICES AVEC FONT DISPLAY ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
@@ -186,6 +190,27 @@
         ::selection { background: var(--primary); color: #fff; }
 
         /* ============================================
+                   SKIP LINK - ACCESSIBILITÉ
+                ============================================ */
+        .skip-link {
+            position: absolute;
+            top: -9999px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 24px;
+            z-index: 99999;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .skip-link:focus {
+            top: 20px;
+        }
+
+        /* ============================================
                    UTILITAIRES
                 ============================================ */
         .gradient-text {
@@ -242,11 +267,17 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             text-decoration: none;
+            border-radius: 4px;
         }
 
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-3px);
+        }
+
+        .btn-primary:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         .btn-secondary {
@@ -262,11 +293,17 @@
             transition: all 0.4s ease;
             text-decoration: none;
             background: transparent;
+            border-radius: 4px;
         }
 
         .btn-secondary:hover {
             border-color: var(--primary);
             transform: translateY(-3px);
+        }
+
+        .btn-secondary:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         /* ============================================
@@ -343,6 +380,11 @@
             color: var(--text-color);
         }
 
+        .navbar .logo-wrapper:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 4px;
+        }
+
         .navbar .logo-avatar {
             width: 40px;
             height: 40px;
@@ -385,12 +427,18 @@
             font-weight: 500;
             padding: 8px 16px;
             transition: all 0.3s ease;
+            border-radius: 4px;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
             color: var(--text-color);
             background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-links a:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         body.light-mode .nav-links a:hover,
@@ -417,10 +465,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 4px;
         }
 
         .nav-links .theme-toggle:hover {
             border-color: var(--primary);
+        }
+
+        .nav-links .theme-toggle:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         .menu-toggle {
@@ -438,10 +492,16 @@
             min-height: 48px;
             z-index: 1001;
             position: relative;
+            border-radius: 4px;
         }
 
         .menu-toggle:hover {
             opacity: 0.7;
+        }
+
+        .menu-toggle:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         .menu-toggle .menu-icon {
@@ -519,6 +579,11 @@
             opacity: 0.7;
         }
 
+        .mobile-menu .close-menu:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
         .mobile-menu a {
             display: block;
             color: var(--text-secondary-color);
@@ -528,6 +593,7 @@
             font-weight: 500;
             transition: all 0.2s ease;
             border-bottom: 1px solid var(--border-color-custom);
+            border-radius: 4px;
         }
 
         .mobile-menu a:last-child {
@@ -537,6 +603,11 @@
         .mobile-menu a:hover {
             color: var(--text-color);
             background: rgba(255, 255, 255, 0.05);
+        }
+
+        .mobile-menu a:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         body.light-mode .mobile-menu a:hover {
@@ -569,6 +640,7 @@
             cursor: pointer;
             margin-top: 12px;
             font-weight: 500;
+            border-radius: 4px;
         }
 
         .mobile-menu .theme-toggle:hover {
@@ -630,6 +702,11 @@
             cursor: pointer;
             transition: all 0.4s ease;
             border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-indicator:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         body.light-mode .hero-indicator {
@@ -716,6 +793,7 @@
             border: 1px solid var(--border-color-custom);
             font-size: 12px;
             color: var(--text-secondary-color);
+            border-radius: 4px;
         }
 
         .hero-tags span i {
@@ -806,6 +884,7 @@
             border: 1px solid var(--border-color-custom);
             overflow: hidden;
             transition: all 0.4s ease;
+            border-radius: 8px;
         }
 
         .about-card:hover {
@@ -879,6 +958,7 @@
             border: 1px solid var(--border-color-custom);
             padding: 28px 30px;
             transition: all 0.3s ease;
+            border-radius: 8px;
         }
 
         .skill-group:hover {
@@ -927,6 +1007,7 @@
             height: 4px;
             background: var(--bg-surface);
             overflow: hidden;
+            border-radius: 2px;
         }
 
         .skill-bar-track .skill-bar-fill {
@@ -970,11 +1051,17 @@
             cursor: pointer;
             display: flex;
             flex-direction: column;
+            border-radius: 8px;
         }
 
         .project-card:hover {
             transform: translateY(-4px);
             border-color: rgba(220, 38, 38, 0.2);
+        }
+
+        .project-card:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         .project-card .project-image {
@@ -1022,6 +1109,7 @@
             letter-spacing: 0.03em;
             background: transparent;
             transition: all 0.3s ease;
+            border-radius: 4px;
         }
 
         .project-card .project-body .project-tags span:hover {
@@ -1058,11 +1146,17 @@
             border: 1px solid var(--border-color-custom);
             align-self: flex-start;
             background: transparent;
+            border-radius: 4px;
         }
 
         .project-card .project-body .project-link:hover {
             border-color: var(--primary);
             gap: 12px;
+        }
+
+        .project-card .project-body .project-link:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         /* ============================================
@@ -1107,10 +1201,16 @@
             align-items: center;
             justify-content: center;
             z-index: 2001;
+            border-radius: 4px;
         }
 
         .project-modal .modal-close:hover {
             border-color: var(--primary);
+        }
+
+        .project-modal .modal-close:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         .project-modal .modal-image {
@@ -1119,6 +1219,7 @@
             background: var(--bg-surface);
             overflow: hidden;
             margin-bottom: 30px;
+            border-radius: 8px;
         }
 
         .project-modal .modal-image img {
@@ -1143,6 +1244,7 @@
             color: var(--text-secondary-color);
             background: transparent;
             letter-spacing: 0.02em;
+            border-radius: 4px;
         }
 
         .project-modal .modal-title {
@@ -1173,6 +1275,7 @@
             background: var(--bg-surface);
             padding: 14px 18px;
             border: 1px solid var(--border-color-custom);
+            border-radius: 8px;
         }
 
         .project-modal .modal-details .detail-item .label {
@@ -1245,6 +1348,7 @@
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             aspect-ratio: 1/1;
             cursor: pointer;
+            border-radius: 8px;
         }
 
         .gallery-item:nth-child(1) {
@@ -1294,6 +1398,7 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 24px;
+            border-radius: 8px;
         }
 
         .gallery-item:hover .gallery-overlay {
@@ -1337,6 +1442,7 @@
             opacity: 0;
             transform: translateY(-10px);
             transition: all 0.4s ease;
+            border-radius: 4px;
         }
 
         .gallery-item:hover .gallery-badge {
@@ -1371,6 +1477,7 @@
             padding: 32px;
             transition: all 0.4s ease;
             position: relative;
+            border-radius: 8px;
         }
 
         .service-card:hover {
@@ -1438,6 +1545,7 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.4s ease;
+            border-radius: 4px;
         }
 
         .service-card .btn-service.primary {
@@ -1513,6 +1621,7 @@
             align-items: center;
             justify-content: center;
             z-index: 1;
+            border-radius: 50%;
         }
 
         .timeline-item .timeline-dot i {
@@ -1525,6 +1634,7 @@
             border: 1px solid var(--border-color-custom);
             padding: 24px;
             transition: all 0.4s ease;
+            border-radius: 8px;
         }
 
         .timeline-item .timeline-content:hover {
@@ -1540,6 +1650,7 @@
             background: rgba(220, 38, 38, 0.1);
             padding: 2px 12px;
             margin-bottom: 8px;
+            border-radius: 4px;
         }
 
         .timeline-item .timeline-content h4 {
@@ -1581,10 +1692,11 @@
             background: var(--bg-surface);
             border: 1px solid var(--border-color-custom);
             color: var(--text-muted);
+            border-radius: 4px;
         }
 
         /* ============================================
-                   CARROUSEL AVIS CLIENTS - AVEC BORDER RADIUS
+                   CARROUSEL AVIS CLIENTS
                 ============================================ */
         .testimonials {
             background: var(--bg-card);
@@ -1621,7 +1733,7 @@
             border: 1px solid var(--border-color-custom);
             padding: 36px 32px;
             text-align: center;
-            border-radius: 20px;
+            border-radius: 16px;
             transition: all 0.4s ease;
         }
 
@@ -1695,6 +1807,11 @@
             background: rgba(220, 38, 38, 0.05);
         }
 
+        .carousel-controls button:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
         .carousel-dots {
             display: flex;
             justify-content: center;
@@ -1716,6 +1833,11 @@
             background: var(--primary);
             transform: scale(1.2);
             border-color: var(--primary);
+        }
+
+        .carousel-dots .dot:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         /* ============================================
@@ -1747,6 +1869,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color-custom);
             padding: 32px;
+            border-radius: 8px;
         }
 
         .contact-info-card .contact-item {
@@ -1823,10 +1946,16 @@
             border-color: var(--primary);
         }
 
+        .footer-social a:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
         .contact-form-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color-custom);
             padding: 32px;
+            border-radius: 8px;
         }
 
         .contact-form-card .form-group {
@@ -1863,6 +1992,7 @@
         .contact-form-card textarea:focus {
             border-color: var(--primary);
             background: var(--bg-body);
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.05);
         }
 
         .contact-form-card input::placeholder,
@@ -1884,7 +2014,7 @@
         }
 
         /* ============================================
-                   COMMANDE - Design épuré
+                   COMMANDE
                 ============================================ */
         .commande {
             background: var(--bg-card);
@@ -2015,6 +2145,11 @@
             transform: translateY(-3px);
         }
 
+        .footer-social a:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
         .footer-links h4 {
             font-family: var(--font-display);
             font-size: 14px;
@@ -2034,6 +2169,11 @@
 
         .footer-links a:hover {
             color: var(--primary);
+        }
+
+        .footer-links a:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         .footer-newsletter h4 {
@@ -2069,6 +2209,7 @@
 
         .footer-newsletter input:focus {
             border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.05);
         }
 
         .footer-newsletter input::placeholder {
@@ -2091,6 +2232,11 @@
         .footer-newsletter button:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
+        }
+
+        .footer-newsletter button:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         .footer-bottom {
@@ -2124,6 +2270,11 @@
 
         .footer-bottom .footer-legal a:hover {
             color: var(--text-color);
+        }
+
+        .footer-bottom .footer-legal a:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         /* ============================================
@@ -2296,6 +2447,11 @@
 <body>
 
     <!-- ============================================
+    SKIP LINK - ACCESSIBILITÉ
+    ============================================ -->
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+    <!-- ============================================
     PRELOADER
     ============================================ -->
     <div id="preloader">
@@ -2315,26 +2471,26 @@
     <!-- ============================================
     NAVBAR
     ============================================ -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar" aria-label="Navigation principale">
         <div class="container">
-            <a href="#home" class="logo-wrapper">
-                <img src="images/photo.jpg" alt="Divin Ntwali" class="logo-avatar" />
+            <a href="#home" class="logo-wrapper" aria-label="Accueil">
+                <img src="images/photo.jpg" alt="Divin Ntwali" class="logo-avatar" width="40" height="40" />
                 <div class="logo">
                     Divin<span>.</span>
                 </div>
             </a>
 
-            <ul class="nav-links">
-                <li><a href="#home" class="active">Accueil</a></li>
-                <li><a href="#about">À propos</a></li>
-                <li><a href="#skills">Compétences</a></li>
-                <li><a href="#projects">Projets</a></li>
-                <li><a href="#gallery">Galerie</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#experience">Parcours</a></li>
-                <li><a href="#testimonials">Avis</a></li>
-                <li><a href="#commande">Commande</a></li>
-                <li><a href="#contact" class="btn-primary">Contact</a></li>
+            <ul class="nav-links" role="menubar">
+                <li role="none"><a href="#home" role="menuitem" class="active">Accueil</a></li>
+                <li role="none"><a href="#about" role="menuitem">À propos</a></li>
+                <li role="none"><a href="#skills" role="menuitem">Compétences</a></li>
+                <li role="none"><a href="#projects" role="menuitem">Projets</a></li>
+                <li role="none"><a href="#gallery" role="menuitem">Galerie</a></li>
+                <li role="none"><a href="#services" role="menuitem">Services</a></li>
+                <li role="none"><a href="#experience" role="menuitem">Parcours</a></li>
+                <li role="none"><a href="#testimonials" role="menuitem">Avis</a></li>
+                <li role="none"><a href="#commande" role="menuitem">Commande</a></li>
+                <li role="none"><a href="#contact" role="menuitem" class="btn-primary">Contact</a></li>
                 <li><button class="theme-toggle" id="themeToggle" aria-label="Changer de thème"><i class="fas fa-moon"></i></button></li>
             </ul>
 
@@ -2351,8 +2507,8 @@
     </nav>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="close-menu" id="closeMenu"><i class="fas fa-times"></i></button>
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu mobile">
+        <button class="close-menu" id="closeMenu" aria-label="Fermer le menu"><i class="fas fa-times"></i></button>
         <a href="#home"><i class="fas fa-home"></i> Accueil</a>
         <a href="#about"><i class="fas fa-user"></i> À propos</a>
         <a href="#skills"><i class="fas fa-code"></i> Compétences</a>
@@ -2367,858 +2523,865 @@
     </div>
 
     <!-- ============================================
-    HERO - PAGE D'ACCUEIL AVEC SLIDES D'IMAGES
+    MAIN CONTENT - pour le skip link
     ============================================ -->
-    <section class="hero" id="home">
-        <div class="hero-slideshow" id="heroSlideshow">
-            <div class="hero-slide active">
-                <img src="images/True colours.jpeg" alt="Développeur & artiste" loading="lazy" />
-            </div>
-            <div class="hero-slide">
-                <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?w=1600&q=80" alt="Designer & créateur" loading="lazy" />
-            </div>
-            <div class="hero-slide">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&q=80" alt="Code & innovation" loading="lazy" />
-            </div>
-            <div class="hero-slide">
-                <img src="images/True colours.jpeg" alt="Mobile & créativité" loading="lazy" />
-            </div>
-        </div>
+    <main id="main-content">
 
-        <div class="container">
-            <div class="hero-content animate-on-scroll visible">
-                <h1>
-                    <span class="hero-intro">Hi, je suis</span>
-                    <span class="hero-name">Divin Ntwali</span>
-                    <span class="highlight">Développeur Full-Stack</span>
-                    <span style="display:block; font-size:0.5em; font-weight:400; color:var(--text-secondary-color); margin-top:4px;">& Designer d'expériences numériques</span>
-                </h1>
-
-                <p class="subtitle">
-                    Je crée des expériences numériques <strong>sur mesure</strong>
-                    du design d'interface au développement web et mobile,
-                    en passant par la stratégie de marque.
-                </p>
-
-                <div class="hero-tags">
-                    <span><i class="fas fa-pen-fancy"></i> UI/UX Design</span>
-                    <span><i class="fas fa-code"></i> Web Development</span>
-                    <span><i class="fas fa-mobile-alt"></i> Mobile Apps</span>
-                    <span><i class="fas fa-brain"></i> Brand Strategy</span>
+        <!-- ============================================
+        HERO - PAGE D'ACCUEIL AVEC SLIDES D'IMAGES
+        ============================================ -->
+        <section class="hero" id="home" aria-label="Présentation">
+            <div class="hero-slideshow" id="heroSlideshow">
+                <div class="hero-slide active">
+                    <img src="images/True colours.jpeg" alt="Développeur & artiste" loading="lazy" width="1600" height="1000" />
                 </div>
-
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn-primary">Voir mes projets <i class="fas fa-arrow-right"></i></a>
-                    <a href="#contact" class="btn-secondary">Me contacter</a>
+                <div class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?w=1600&q=80" alt="Designer & créateur" loading="lazy" width="1600" height="1000" />
                 </div>
-
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="number">6+</div>
-                        <div class="label">Années</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="number">50+</div>
-                        <div class="label">Projets</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="number">500+</div>
-                        <div class="label">Clients</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="number">40+</div>
-                        <div class="label">Sites</div>
-                    </div>
+                <div class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&q=80" alt="Code & innovation" loading="lazy" width="1600" height="1000" />
+                </div>
+                <div class="hero-slide">
+                    <img src="images/True colours.jpeg" alt="Mobile & créativité" loading="lazy" width="1600" height="1000" />
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- ============================================
-    ABOUT
-    ============================================ -->
-    <section class="about section-padding" id="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-text animate-on-scroll">
-                    <h2>
-                        Designer, développeur<br />
-                        <span class="highlight">et créateur d'expériences</span>
+            <div class="container">
+                <div class="hero-content animate-on-scroll visible">
+                    <h1>
+                        <span class="hero-intro">Hi, je suis</span>
+                        <span class="hero-name">Divin Ntwali</span>
+                        <span class="highlight">Développeur Full-Stack</span>
+                        <span style="display:block; font-size:0.5em; font-weight:400; color:var(--text-secondary-color); margin-top:4px;">& Designer d'expériences numériques</span>
+                    </h1>
+
+                    <p class="subtitle">
+                        Je crée des expériences numériques <strong>sur mesure</strong>
+                        du design d'interface au développement web et mobile,
+                        en passant par la stratégie de marque.
+                    </p>
+
+                    <div class="hero-tags">
+                        <span><i class="fas fa-pen-fancy"></i> UI/UX Design</span>
+                        <span><i class="fas fa-code"></i> Web Development</span>
+                        <span><i class="fas fa-mobile-alt"></i> Mobile Apps</span>
+                        <span><i class="fas fa-brain"></i> Brand Strategy</span>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn-primary">Voir mes projets <i class="fas fa-arrow-right"></i></a>
+                        <a href="#contact" class="btn-secondary">Me contacter</a>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="number">6+</div>
+                            <div class="label">Années</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">50+</div>
+                            <div class="label">Projets</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">500+</div>
+                            <div class="label">Clients</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">40+</div>
+                            <div class="label">Sites</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+        ABOUT
+        ============================================ -->
+        <section class="about section-padding" id="about" aria-label="À propos">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text animate-on-scroll">
+                        <h2>
+                            Designer, développeur<br />
+                            <span class="highlight">et créateur d'expériences</span>
+                        </h2>
+                        <p>
+                            Je m'appelle <strong>Divin Ntwali</strong>, un créatif passionné par l'intersection
+                            entre le design, la technologie et l'humain. Avec un parcours hybride
+                            en design et en développement, j'apporte une vision à 360° à chaque projet.
+                        </p>
+                        <p>
+                            Ma philosophie : <strong>allier esthétique et performance</strong> pour créer
+                            des produits numériques qui non seulement séduisent visuellement,
+                            mais qui fonctionnent parfaitement sur tous les supports.
+                        </p>
+                        <div class="signature">
+                            Divin <span>Ntwali</span>
+                        </div>
+                    </div>
+
+                    <div class="about-cards animate-on-scroll">
+                        <div class="about-card">
+                            <div class="card-image">
+                                <img src="images/Behind the Scenes of Graphic Design Creativity.jpeg" alt="UI/UX Design" loading="lazy" width="400" height="300" />
+                            </div>
+                            <div class="card-body">
+                                <h4>Design & Créativité</h4>
+                                <p>UI/UX, Logo, branding, design d'interface et direction artistique.</p>
+                            </div>
+                        </div>
+                        <div class="about-card">
+                            <div class="card-image">
+                                <img src="images/WhatsApp Image 2026-08-24 at 19.06.46.jpeg" alt="Développement" loading="lazy" width="400" height="300" />
+                            </div>
+                            <div class="card-body">
+                                <h4>Développement Web</h4>
+                                <p>Html, Css, JavaScript, Tailwind, API, Django, Postgresql, performances et SEO.</p>
+                            </div>
+                        </div>
+                        <div class="about-card">
+                            <div class="card-image">
+                                <img src="images/Elevate Your Business with Mobile App Development Toronto (1).jpeg" alt="Mobile" loading="lazy" width="400" height="300" />
+                            </div>
+                            <div class="card-body">
+                                <h4>Applications Mobiles</h4>
+                                <p>React Native, Flutter, applications natives hybrides.</p>
+                            </div>
+                        </div>
+                        <div class="about-card">
+                            <div class="card-image">
+                                <img src="images/Ma minute finance _ pourquoi décorréler ses investissements _.jpeg" alt="Stratégie" loading="lazy" width="400" height="300" />
+                            </div>
+                            <div class="card-body">
+                                <h4>Stratégie & Conseil</h4>
+                                <p>Positionnement, roadmap produit et optimisation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+        SKILLS - BARRES DE PROGRESSION
+        ============================================ -->
+        <section class="skills section-padding" id="skills" aria-label="Compétences">
+            <div class="container">
+                <div class="skills-header animate-on-scroll">
+                    <h2 class="section-title">
+                        Technologies & <span class="highlight">Compétences</span>
                     </h2>
-                    <p>
-                        Je m'appelle <strong>Divin Ntwali</strong>, un créatif passionné par l'intersection
-                        entre le design, la technologie et l'humain. Avec un parcours hybride
-                        en design et en développement, j'apporte une vision à 360° à chaque projet.
+                    <p class="section-subtitle">
+                        Mes niveaux de maîtrise dans les technologies clés.
                     </p>
-                    <p>
-                        Ma philosophie : <strong>allier esthétique et performance</strong> pour créer
-                        des produits numériques qui non seulement séduisent visuellement,
-                        mais qui fonctionnent parfaitement sur tous les supports.
+                </div>
+
+                <div class="skills-grid">
+                    <div class="skill-group animate-on-scroll">
+                        <div class="group-header">
+                            <h3>Design & Création</h3>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">UI/UX Design</span>
+                                <span class="skill-level">90%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:90%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Brand Identity</span>
+                                <span class="skill-level">85%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:85%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Figma / Adobe Suite</span>
+                                <span class="skill-level">95%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:95%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Design System</span>
+                                <span class="skill-level">80%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:80%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-group animate-on-scroll">
+                        <div class="group-header">
+                            <h3>Développement Web</h3>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">React / Next.js</span>
+                                <span class="skill-level">92%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:92%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">TypeScript</span>
+                                <span class="skill-level">88%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:88%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Tailwind CSS</span>
+                                <span class="skill-level">90%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:90%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Node.js / GraphQL</span>
+                                <span class="skill-level">75%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:75%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-group animate-on-scroll">
+                        <div class="group-header">
+                            <h3>Applications Mobiles</h3>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">React Native</span>
+                                <span class="skill-level">82%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:82%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Flutter</span>
+                                <span class="skill-level">60%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:60%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">iOS / Android</span>
+                                <span class="skill-level">70%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:70%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Firebase</span>
+                                <span class="skill-level">78%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="--fill:78%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+        PROJECTS
+        ============================================ -->
+        <section class="projects section-padding" id="projects" aria-label="Projets">
+            <div class="container">
+                <div class="projects-header animate-on-scroll">
+                    <h2 class="section-title">
+                        Projets <span class="highlight">Récents & Portfolio</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Une sélection de projets qui reflètent mon approche et ma polyvalence.
                     </p>
-                    <div class="signature">
-                        Divin <span>Ntwali</span>
-                    </div>
                 </div>
 
-                <div class="about-cards animate-on-scroll">
-                    <div class="about-card">
-                        <div class="card-image">
-                            <img src="images/Behind the Scenes of Graphic Design Creativity.jpeg" alt="UI/UX Design" loading="lazy" />
+                <div class="projects-grid" id="projectsGrid">
+                    <div class="project-card animate-on-scroll" data-project="project1" tabindex="0" role="button" aria-label="Voir le projet Best Diversity Design Kit">
+                        <div class="project-image">
+                            <img src="images/cenumep.png" alt="Best Diversity Design Kit" loading="lazy" width="600" height="400" />
                         </div>
-                        <div class="card-body">
-                            <h4>Design & Créativité</h4>
-                            <p>UI/UX, Logo, branding, design d'interface et direction artistique.</p>
-                        </div>
-                    </div>
-                    <div class="about-card">
-                        <div class="card-image">
-                            <img src="images/WhatsApp Image 2026-08-24 at 19.06.46.jpeg" alt="Développement" loading="lazy" />
-                        </div>
-                        <div class="card-body">
-                            <h4>Développement Web</h4>
-                            <p>Html, Css, JavaScript, Tailwind, API, Django, Postgresql, performances et SEO.</p>
+                        <div class="project-body">
+                            <div class="project-tags">
+                                <span>Design System</span>
+                                <span>Branding</span>
+                                <span>UI/UX</span>
+                            </div>
+                            <h3>Best Diversity Design Kit</h3>
+                            <p>Une suite complète d'outils design pour promouvoir la diversité et l'inclusion dans les entreprises.</p>
+                            <span class="project-link" onclick="openProject('project1')">Voir le projet <i class="fas fa-arrow-right"></i></span>
                         </div>
                     </div>
-                    <div class="about-card">
-                        <div class="card-image">
-                            <img src="images/Elevate Your Business with Mobile App Development Toronto (1).jpeg" alt="Mobile" loading="lazy" />
+
+                    <div class="project-card animate-on-scroll" data-project="project2" tabindex="0" role="button" aria-label="Voir le projet Filled Coffee Co.">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=80" alt="Filled Coffee Co." loading="lazy" width="600" height="400" />
                         </div>
-                        <div class="card-body">
-                            <h4>Applications Mobiles</h4>
-                            <p>React Native, Flutter, applications natives hybrides.</p>
-                        </div>
-                    </div>
-                    <div class="about-card">
-                        <div class="card-image">
-                            <img src="images/Ma minute finance _ pourquoi décorréler ses investissements _.jpeg" alt="Stratégie" loading="lazy" />
-                        </div>
-                        <div class="card-body">
-                            <h4>Stratégie & Conseil</h4>
-                            <p>Positionnement, roadmap produit et optimisation.</p>
+                        <div class="project-body">
+                            <div class="project-tags">
+                                <span>Brand Identity</span>
+                                <span>Packaging</span>
+                                <span>Art Direction</span>
+                            </div>
+                            <h3>Filled Coffee Co.</h3>
+                            <p>Rebranding complet pour une entreprise de café de spécialité avec une identité visuelle chaleureuse.</p>
+                            <span class="project-link" onclick="openProject('project2')">Voir le projet <i class="fas fa-arrow-right"></i></span>
                         </div>
                     </div>
+
+                    <div class="project-card animate-on-scroll" data-project="project3" tabindex="0" role="button" aria-label="Voir le projet Nova Scene">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Nova Scene" loading="lazy" width="600" height="400" />
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags">
+                                <span>UI/UX</span>
+                                <span>Web Design</span>
+                                <span>Prototype</span>
+                            </div>
+                            <h3>Nova Scene</h3>
+                            <p>Plateforme de création artistique immersive permettant aux artistes de collaborer et de partager leur travail.</p>
+                            <span class="project-link" onclick="openProject('project3')">Voir le projet <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="project-card animate-on-scroll" data-project="project4" tabindex="0" role="button" aria-label="Voir le projet EcoTrack Dashboard">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="EcoTrack Dashboard" loading="lazy" width="600" height="400" />
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags">
+                                <span>Data Viz</span>
+                                <span>Dashboard</span>
+                                <span>React</span>
+                            </div>
+                            <h3>EcoTrack Dashboard</h3>
+                            <p>Tableau de bord interactif pour le suivi des émissions carbone des entreprises en temps réel.</p>
+                            <span class="project-link" onclick="openProject('project4')">Voir le projet <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="project-card animate-on-scroll" data-project="project5" tabindex="0" role="button" aria-label="Voir le projet Art Gallery App">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=80" alt="Art Gallery App" loading="lazy" width="600" height="400" />
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags">
+                                <span>AR/VR</span>
+                                <span>Mobile</span>
+                                <span>React Native</span>
+                            </div>
+                            <h3>Art Gallery App</h3>
+                            <p>Application mobile pour découvrir des œuvres d'art en réalité augmentée dans votre espace réel.</p>
+                            <span class="project-link" onclick="openProject('project5')">Voir le projet <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="project-card animate-on-scroll" data-project="project6" tabindex="0" role="button" aria-label="Voir le projet Portfolio Pro">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" alt="Portfolio Pro" loading="lazy" width="600" height="400" />
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags">
+                                <span>Portfolio</span>
+                                <span>Web Design</span>
+                                <span>Next.js</span>
+                            </div>
+                            <h3>Portfolio Pro</h3>
+                            <p>Plateforme de création de portfolio pour designers et photographes avec animations fluides.</p>
+                            <span class="project-link" onclick="openProject('project6')">Voir le projet <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+        MODAL PROJET
+        ============================================ -->
+        <div class="project-modal" id="projectModal" role="dialog" aria-modal="true" aria-label="Détails du projet">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeProject()" aria-label="Fermer"><i class="fas fa-times"></i></button>
+                <div class="modal-image">
+                    <img src="" alt="Projet" id="modalImage" />
+                </div>
+                <div class="modal-tags" id="modalTags"></div>
+                <h2 class="modal-title" id="modalTitle">Titre du projet</h2>
+                <p class="modal-description" id="modalDescription">Description du projet.</p>
+                <div class="modal-details" id="modalDetails">
+                    <div class="detail-item">
+                        <div class="label">Client</div>
+                        <div class="value" id="modalClient">Client</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Année</div>
+                        <div class="value" id="modalYear">2024</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Technologies</div>
+                        <div class="value" id="modalTech">React, Tailwind</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Catégorie</div>
+                        <div class="value" id="modalCategory">Design</div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <a href="https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20" class="btn-primary" id="modalLink" target="_blank">Discuter du projet <i class="fab fa-whatsapp"></i></a>
+                    <a href="#contact" class="btn-secondary" onclick="closeProject()">Me contacter <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- ============================================
-    SKILLS - BARRES DE PROGRESSION
-    ============================================ -->
-    <section class="skills section-padding" id="skills">
-        <div class="container">
-            <div class="skills-header animate-on-scroll">
-                <h2 class="section-title">
-                    Technologies & <span class="highlight">Compétences</span>
-                </h2>
-                <p class="section-subtitle">
-                    Mes niveaux de maîtrise dans les technologies clés.
-                </p>
-            </div>
-
-            <div class="skills-grid">
-                <div class="skill-group animate-on-scroll">
-                    <div class="group-header">
-                        <h3>Design & Création</h3>
-                    </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">UI/UX Design</span>
-                            <span class="skill-level">90%</span>
-                        </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:90%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">Brand Identity</span>
-                            <span class="skill-level">85%</span>
-                        </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:85%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">Figma / Adobe Suite</span>
-                            <span class="skill-level">95%</span>
-                        </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:95%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">Design System</span>
-                            <span class="skill-level">80%</span>
-                        </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:80%;"></div>
-                        </div>
-                    </div>
+        <!-- ============================================
+        GALLERY
+        ============================================ -->
+        <section class="gallery section-padding" id="gallery" aria-label="Galerie">
+            <div class="container">
+                <div class="gallery-header animate-on-scroll">
+                    <span class="section-label">Mon univers</span>
+                    <h2 class="section-title">
+                        Ma <span class="highlight">Galerie</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Un aperçu de mon travail, de mes inspirations et de mes créations visuelles.
+                    </p>
                 </div>
 
-                <div class="skill-group animate-on-scroll">
-                    <div class="group-header">
-                        <h3>Développement Web</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item animate-on-scroll">
+                        <img src="images/True colours.jpeg" alt="Portrait créatif" loading="lazy" width="800" height="800" />
+                        <div class="gallery-overlay">
+                            <span class="gallery-label">True Colours</span>
+                            <span class="gallery-sub">Portrait · Créativité</span>
+                        </div>
+                        <span class="gallery-badge">Portrait</span>
                     </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">React / Next.js</span>
-                            <span class="skill-level">92%</span>
-                        </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:92%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">TypeScript</span>
-                            <span class="skill-level">88%</span>
-                        </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:88%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">Tailwind CSS</span>
-                            <span class="skill-level">90%</span>
-                        </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:90%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">Node.js / GraphQL</span>
-                            <span class="skill-level">75%</span>
-                        </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:75%;"></div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="skill-group animate-on-scroll">
-                    <div class="group-header">
-                        <h3>Applications Mobiles</h3>
+                    <div class="gallery-item animate-on-scroll">
+                        <img src="images/Behind the Scenes of Graphic Design Creativity.jpeg" alt="Behind the Scenes" loading="lazy" width="800" height="800" />
+                        <div class="gallery-overlay">
+                            <span class="gallery-label">Behind the Scenes</span>
+                            <span class="gallery-sub">Graphic Design · Studio</span>
+                        </div>
+                        <span class="gallery-badge">Studio</span>
                     </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">React Native</span>
-                            <span class="skill-level">82%</span>
+
+                    <div class="gallery-item animate-on-scroll">
+                        <img src="images/WhatsApp Image 2026-08-24 at 19.06.46.jpeg" alt="Design en action" loading="lazy" width="800" height="800" />
+                        <div class="gallery-overlay">
+                            <span class="gallery-label">Design en action</span>
+                            <span class="gallery-sub">UI/UX · Création</span>
                         </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:82%;"></div>
-                        </div>
+                        <span class="gallery-badge">UI/UX</span>
                     </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">Flutter</span>
-                            <span class="skill-level">60%</span>
+
+                    <div class="gallery-item animate-on-scroll">
+                        <img src="images/Elevate Your Business with Mobile App Development Toronto (1).jpeg" alt="Mobile Development" loading="lazy" width="800" height="800" />
+                        <div class="gallery-overlay">
+                            <span class="gallery-label">Mobile Dev</span>
+                            <span class="gallery-sub">React Native · App</span>
                         </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:60%;"></div>
-                        </div>
+                        <span class="gallery-badge">Mobile</span>
                     </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">iOS / Android</span>
-                            <span class="skill-level">70%</span>
+
+                    <div class="gallery-item animate-on-scroll">
+                        <img src="images/Ma minute finance _ pourquoi décorréler ses investissements _.jpeg" alt="Stratégie & Finance" loading="lazy" width="800" height="800" />
+                        <div class="gallery-overlay">
+                            <span class="gallery-label">Stratégie</span>
+                            <span class="gallery-sub">Conseil · Vision</span>
                         </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:70%;"></div>
-                        </div>
+                        <span class="gallery-badge">Stratégie</span>
                     </div>
-                    <div class="skill-bar-item">
-                        <div class="skill-info">
-                            <span class="skill-name">Firebase</span>
-                            <span class="skill-level">78%</span>
+
+                    <div class="gallery-item animate-on-scroll">
+                        <img src="images/cenumep.png" alt="Diversity Design" loading="lazy" width="800" height="800" />
+                        <div class="gallery-overlay">
+                            <span class="gallery-label">Diversity Design</span>
+                            <span class="gallery-sub">Design System · Inclusion</span>
                         </div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="--fill:78%;"></div>
+                        <span class="gallery-badge">Design System</span>
+                    </div>
+
+                    <div class="gallery-item animate-on-scroll">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" alt="Code & Innovation" loading="lazy" width="800" height="800" />
+                        <div class="gallery-overlay">
+                            <span class="gallery-label">Code & Innovation</span>
+                            <span class="gallery-sub">Développement · Tech</span>
                         </div>
+                        <span class="gallery-badge">Tech</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ============================================
-    PROJECTS
-    ============================================ -->
-    <section class="projects section-padding" id="projects">
-        <div class="container">
-            <div class="projects-header animate-on-scroll">
-                <h2 class="section-title">
-                    Projets <span class="highlight">Récents & Portfolio</span>
-                </h2>
-                <p class="section-subtitle">
-                    Une sélection de projets qui reflètent mon approche et ma polyvalence.
-                </p>
-            </div>
-
-            <div class="projects-grid" id="projectsGrid">
-                <div class="project-card animate-on-scroll" data-project="project1">
-                    <div class="project-image">
-                        <img src="images/cenumep.png" alt="Best Diversity Design Kit" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="project-tags">
-                            <span>Design System</span>
-                            <span>Branding</span>
-                            <span>UI/UX</span>
-                        </div>
-                        <h3>Best Diversity Design Kit</h3>
-                        <p>Une suite complète d'outils design pour promouvoir la diversité et l'inclusion dans les entreprises.</p>
-                        <span class="project-link" onclick="openProject('project1')">Voir le projet <i class="fas fa-arrow-right"></i></span>
-                    </div>
+        <!-- ============================================
+        SERVICES
+        ============================================ -->
+        <section class="services section-padding" id="services" aria-label="Services">
+            <div class="container">
+                <div class="services-header animate-on-scroll">
+                    <h2 class="section-title">
+                        Des services <span class="highlight">sur mesure</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Des forfaits adaptés à chaque étape de votre projet, de la conception à la livraison.
+                    </p>
                 </div>
 
-                <div class="project-card animate-on-scroll" data-project="project2">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=80" alt="Filled Coffee Co." loading="lazy" />
+                <div class="services-grid">
+                    <div class="service-card animate-on-scroll">
+                        <h3>Petites entreprises</h3>
+                        <div class="service-price">$100 <small>/ projet</small></div>
+                        <p>Idéal pour les startups et projets en phase de lancement.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Identité visuelle complète</li>
+                            <li><i class="fas fa-check-circle"></i> UX Design & prototypage</li>
+                            <li><i class="fas fa-check-circle"></i> Landing page responsive</li>
+                        </ul>
+                        <a href="#commande" class="btn-service secondary">Choisir ce forfait</a>
                     </div>
-                    <div class="project-body">
-                        <div class="project-tags">
-                            <span>Brand Identity</span>
-                            <span>Packaging</span>
-                            <span>Art Direction</span>
-                        </div>
-                        <h3>Filled Coffee Co.</h3>
-                        <p>Rebranding complet pour une entreprise de café de spécialité avec une identité visuelle chaleureuse.</p>
-                        <span class="project-link" onclick="openProject('project2')">Voir le projet <i class="fas fa-arrow-right"></i></span>
-                    </div>
-                </div>
 
-                <div class="project-card animate-on-scroll" data-project="project3">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Nova Scene" loading="lazy" />
+                    <div class="service-card featured animate-on-scroll">
+                        <h3>Moyennes entreprises</h3>
+                        <div class="service-price">$300 <small>/ projet</small></div>
+                        <p>Pour les marques établies souhaitant un repositionnement stratégique.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Brand Strategy & positioning</li>
+                            <li><i class="fas fa-check-circle"></i> Design System complet</li>
+                            <li><i class="fas fa-check-circle"></i> Web & Mobile development</li>
+                        </ul>
+                        <a href="#commande" class="btn-service primary">Choisir ce forfait</a>
                     </div>
-                    <div class="project-body">
-                        <div class="project-tags">
-                            <span>UI/UX</span>
-                            <span>Web Design</span>
-                            <span>Prototype</span>
-                        </div>
-                        <h3>Nova Scene</h3>
-                        <p>Plateforme de création artistique immersive permettant aux artistes de collaborer et de partager leur travail.</p>
-                        <span class="project-link" onclick="openProject('project3')">Voir le projet <i class="fas fa-arrow-right"></i></span>
-                    </div>
-                </div>
 
-                <div class="project-card animate-on-scroll" data-project="project4">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="EcoTrack Dashboard" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="project-tags">
-                            <span>Data Viz</span>
-                            <span>Dashboard</span>
-                            <span>React</span>
-                        </div>
-                        <h3>EcoTrack Dashboard</h3>
-                        <p>Tableau de bord interactif pour le suivi des émissions carbone des entreprises en temps réel.</p>
-                        <span class="project-link" onclick="openProject('project4')">Voir le projet <i class="fas fa-arrow-right"></i></span>
-                    </div>
-                </div>
-
-                <div class="project-card animate-on-scroll" data-project="project5">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=80" alt="Art Gallery App" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="project-tags">
-                            <span>AR/VR</span>
-                            <span>Mobile</span>
-                            <span>React Native</span>
-                        </div>
-                        <h3>Art Gallery App</h3>
-                        <p>Application mobile pour découvrir des œuvres d'art en réalité augmentée dans votre espace réel.</p>
-                        <span class="project-link" onclick="openProject('project5')">Voir le projet <i class="fas fa-arrow-right"></i></span>
-                    </div>
-                </div>
-
-                <div class="project-card animate-on-scroll" data-project="project6">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" alt="Portfolio Pro" loading="lazy" />
-                    </div>
-                    <div class="project-body">
-                        <div class="project-tags">
-                            <span>Portfolio</span>
-                            <span>Web Design</span>
-                            <span>Next.js</span>
-                        </div>
-                        <h3>Portfolio Pro</h3>
-                        <p>Plateforme de création de portfolio pour designers et photographes avec animations fluides.</p>
-                        <span class="project-link" onclick="openProject('project6')">Voir le projet <i class="fas fa-arrow-right"></i></span>
+                    <div class="service-card animate-on-scroll">
+                        <h3>Grandes entreprises</h3>
+                        <div class="service-price">$1000 <small>/ projet</small></div>
+                        <p>L'accompagnement premium pour les marques qui veulent se démarquer.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Direction artistique 360°</li>
+                            <li><i class="fas fa-check-circle"></i> Campagne & stratégie de marque</li>
+                            <li><i class="fas fa-check-circle"></i> Conseil & accompagnement long terme</li>
+                        </ul>
+                        <a href="#commande" class="btn-service secondary">Choisir ce forfait</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ============================================
-    MODAL PROJET
-    ============================================ -->
-    <div class="project-modal" id="projectModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeProject()"><i class="fas fa-times"></i></button>
-            <div class="modal-image">
-                <img src="" alt="Projet" id="modalImage" />
-            </div>
-            <div class="modal-tags" id="modalTags"></div>
-            <h2 class="modal-title" id="modalTitle">Titre du projet</h2>
-            <p class="modal-description" id="modalDescription">Description du projet.</p>
-            <div class="modal-details" id="modalDetails">
-                <div class="detail-item">
-                    <div class="label">Client</div>
-                    <div class="value" id="modalClient">Client</div>
-                </div>
-                <div class="detail-item">
-                    <div class="label">Année</div>
-                    <div class="value" id="modalYear">2024</div>
-                </div>
-                <div class="detail-item">
-                    <div class="label">Technologies</div>
-                    <div class="value" id="modalTech">React, Tailwind</div>
-                </div>
-                <div class="detail-item">
-                    <div class="label">Catégorie</div>
-                    <div class="value" id="modalCategory">Design</div>
-                </div>
-            </div>
-            <div class="modal-actions">
-                <a href="https://wa.me/243901087801?text=Bonjour%20Divin,%20je%20suis%20intéressé%20par%20le%20projet%20" class="btn-primary" id="modalLink" target="_blank">Discuter du projet <i class="fab fa-whatsapp"></i></a>
-                <a href="#contact" class="btn-secondary" onclick="closeProject()">Me contacter <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================
-    GALLERY
-    ============================================ -->
-    <section class="gallery section-padding" id="gallery">
-        <div class="container">
-            <div class="gallery-header animate-on-scroll">
-                <span class="section-label">Mon univers</span>
-                <h2 class="section-title">
-                    Ma <span class="highlight">Galerie</span>
-                </h2>
-                <p class="section-subtitle">
-                    Un aperçu de mon travail, de mes inspirations et de mes créations visuelles.
-                </p>
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-item animate-on-scroll">
-                    <img src="images/True colours.jpeg" alt="Portrait créatif" loading="lazy" />
-                    <div class="gallery-overlay">
-                        <span class="gallery-label">True Colours</span>
-                        <span class="gallery-sub">Portrait · Créativité</span>
-                    </div>
-                    <span class="gallery-badge">Portrait</span>
+        <!-- ============================================
+        EXPERIENCE
+        ============================================ -->
+        <section class="experience section-padding" id="experience" aria-label="Expérience">
+            <div class="container">
+                <div class="experience-header animate-on-scroll">
+                    <h2 class="section-title">
+                        Mon <span class="highlight">Expérience</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Un cheminement riche en expériences qui ont façonné ma vision du design et du développement.
+                    </p>
                 </div>
 
-                <div class="gallery-item animate-on-scroll">
-                    <img src="images/Behind the Scenes of Graphic Design Creativity.jpeg" alt="Behind the Scenes" loading="lazy" />
-                    <div class="gallery-overlay">
-                        <span class="gallery-label">Behind the Scenes</span>
-                        <span class="gallery-sub">Graphic Design · Studio</span>
-                    </div>
-                    <span class="gallery-badge">Studio</span>
-                </div>
-
-                <div class="gallery-item animate-on-scroll">
-                    <img src="images/WhatsApp Image 2026-08-24 at 19.06.46.jpeg" alt="Design en action" loading="lazy" />
-                    <div class="gallery-overlay">
-                        <span class="gallery-label">Design en action</span>
-                        <span class="gallery-sub">UI/UX · Création</span>
-                    </div>
-                    <span class="gallery-badge">UI/UX</span>
-                </div>
-
-                <div class="gallery-item animate-on-scroll">
-                    <img src="images/Elevate Your Business with Mobile App Development Toronto (1).jpeg" alt="Mobile Development" loading="lazy" />
-                    <div class="gallery-overlay">
-                        <span class="gallery-label">Mobile Dev</span>
-                        <span class="gallery-sub">React Native · App</span>
-                    </div>
-                    <span class="gallery-badge">Mobile</span>
-                </div>
-
-                <div class="gallery-item animate-on-scroll">
-                    <img src="images/Ma minute finance _ pourquoi décorréler ses investissements _.jpeg" alt="Stratégie & Finance" loading="lazy" />
-                    <div class="gallery-overlay">
-                        <span class="gallery-label">Stratégie</span>
-                        <span class="gallery-sub">Conseil · Vision</span>
-                    </div>
-                    <span class="gallery-badge">Stratégie</span>
-                </div>
-
-                <div class="gallery-item animate-on-scroll">
-                    <img src="images/cenumep.png" alt="Diversity Design" loading="lazy" />
-                    <div class="gallery-overlay">
-                        <span class="gallery-label">Diversity Design</span>
-                        <span class="gallery-sub">Design System · Inclusion</span>
-                    </div>
-                    <span class="gallery-badge">Design System</span>
-                </div>
-
-                <div class="gallery-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" alt="Code & Innovation" loading="lazy" />
-                    <div class="gallery-overlay">
-                        <span class="gallery-label">Code & Innovation</span>
-                        <span class="gallery-sub">Développement · Tech</span>
-                    </div>
-                    <span class="gallery-badge">Tech</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    SERVICES
-    ============================================ -->
-    <section class="services section-padding" id="services">
-        <div class="container">
-            <div class="services-header animate-on-scroll">
-                <h2 class="section-title">
-                    Des services <span class="highlight">sur mesure</span>
-                </h2>
-                <p class="section-subtitle">
-                    Des forfaits adaptés à chaque étape de votre projet, de la conception à la livraison.
-                </p>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card animate-on-scroll">
-                    <h3>Petites entreprises</h3>
-                    <div class="service-price">$100 <small>/ projet</small></div>
-                    <p>Idéal pour les startups et projets en phase de lancement.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> Identité visuelle complète</li>
-                        <li><i class="fas fa-check-circle"></i> UX Design & prototypage</li>
-                        <li><i class="fas fa-check-circle"></i> Landing page responsive</li>
-                    </ul>
-                    <a href="#commande" class="btn-service secondary">Choisir ce forfait</a>
-                </div>
-
-                <div class="service-card featured animate-on-scroll">
-                    <h3>Moyennes entreprises</h3>
-                    <div class="service-price">$300 <small>/ projet</small></div>
-                    <p>Pour les marques établies souhaitant un repositionnement stratégique.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> Brand Strategy & positioning</li>
-                        <li><i class="fas fa-check-circle"></i> Design System complet</li>
-                        <li><i class="fas fa-check-circle"></i> Web & Mobile development</li>
-                    </ul>
-                    <a href="#commande" class="btn-service primary">Choisir ce forfait</a>
-                </div>
-
-                <div class="service-card animate-on-scroll">
-                    <h3>Grandes entreprises</h3>
-                    <div class="service-price">$1000 <small>/ projet</small></div>
-                    <p>L'accompagnement premium pour les marques qui veulent se démarquer.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> Direction artistique 360°</li>
-                        <li><i class="fas fa-check-circle"></i> Campagne & stratégie de marque</li>
-                        <li><i class="fas fa-check-circle"></i> Conseil & accompagnement long terme</li>
-                    </ul>
-                    <a href="#commande" class="btn-service secondary">Choisir ce forfait</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    EXPERIENCE
-    ============================================ -->
-    <section class="experience section-padding" id="experience">
-        <div class="container">
-            <div class="experience-header animate-on-scroll">
-                <h2 class="section-title">
-                    Mon <span class="highlight">Expérience</span>
-                </h2>
-                <p class="section-subtitle">
-                    Un cheminement riche en expériences qui ont façonné ma vision du design et du développement.
-                </p>
-            </div>
-
-            <div class="timeline">
-                <div class="timeline-item animate-on-scroll">
-                    <div class="timeline-dot"><i class="fas fa-circle"></i></div>
-                    <div class="timeline-content">
-                        <span class="year">2025 - Aujourd'hui</span>
-                        <h4>Senior UI/UX Designer Frontend & Backend</h4>
-                        <div class="company"><i class="fas fa-building"></i>Kinshasa, RDC</div>
-                        <div class="desc">Conception UI/UX, développement Frontend & Backend, création de sites web modernes et développement de solutions digitales complètes.</div>
-                        <div class="tech-used">
-                            <span>Django</span>
-                            <span>PostgreSQL</span>
-                            <span>IA</span>
-                            <span>React</span>
-                            <span>TypeScript</span>
-                            <span>Figma</span>
-                            <span>Tailwind</span>
-                            <span>Node.js</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item animate-on-scroll">
-                    <div class="timeline-dot"><i class="fas fa-circle"></i></div>
-                    <div class="timeline-content">
-                        <span class="year">2021 - 2023</span>
-                        <h4>Senior UI/UX Designer & Frontend</h4>
-                        <div class="company"><i class="fas fa-building"></i> Bukavu, RDC</div>
-                        <div class="desc">Conception et développement d'interfaces utilisateur pour des applications web et mobiles à fort trafic. Mise en place de design systems.</div>
-                        <div class="tech-used">
-                            <span>React Native</span>
-                            <span>Figma</span>
-                            <span>GraphQL</span>
-                            <span>Firebase</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item animate-on-scroll">
-                    <div class="timeline-dot"><i class="fas fa-circle"></i></div>
-                    <div class="timeline-content">
-                        <span class="year">2019 - 2021</span>
-                        <h4>Designer & Développeur Full-Stack</h4>
-                        <div class="company"><i class="fas fa-laptop"></i>Bukavu, RDC</div>
-                        <div class="desc">Création de sites web et applications mobiles pour une trentaine de clients. Branding, UI/UX, développement et maintenance.</div>
-                        <div class="tech-used">
-                            <span>React</span>
-                            <span>Flutter</span>
-                            <span>Adobe Suite</span>
-                            <span>Webflow</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item animate-on-scroll">
-                    <div class="timeline-dot"><i class="fas fa-circle"></i></div>
-                    <div class="timeline-content">
-                        <span class="year">2017 - 2019</span>
-                        <h4>Bachelor Design & Développement</h4>
-                        <div class="company"><i class="fas fa-graduation-cap"></i>Bukavu, RDC</div>
-                        <div class="desc">Formation en design graphique, UI/UX et développement web. Projets collaboratifs avec des agences et startups.</div>
-                        <div class="tech-used">
-                            <span>Design</span>
-                            <span>UI/UX</span>
-                            <span>HTML/CSS</span>
-                            <span>JavaScript</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CARROUSEL AVIS CLIENTS - AVEC BORDER RADIUS
-    ============================================ -->
-    <section class="testimonials section-padding" id="testimonials">
-        <div class="container">
-            <div class="testimonials-header animate-on-scroll">
-                <span class="section-label">Témoignages</span>
-                <h2 class="section-title">
-                    Ce que disent <span class="highlight">mes clients</span>
-                </h2>
-                <p class="section-subtitle">
-                    Des retours de clients qui ont fait confiance à mon expertise.
-                </p>
-            </div>
-
-            <div class="testimonials-carousel animate-on-scroll">
-                <div class="testimonials-track" id="testimonialsTrack">
-                    <!-- Slide 1 -->
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <div class="stars">★★★★★</div>
-                            <blockquote>“Divin a su comprendre nos besoins et les transformer en une expérience utilisateur exceptionnelle. Son professionnalisme et sa créativité ont fait la différence.”</blockquote>
-                            <div class="client-info">
-                                <img src="images/mardoché.jpg" alt="Lilombo Mardoché" class="client-avatar" />
-                                <div>
-                                    <div class="client-name">Lilombo Mardoché</div>
-                                    <div class="client-role">Co-fondateur, Dunia E-learning</div>
-                                </div>
+                <div class="timeline">
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"><i class="fas fa-circle"></i></div>
+                        <div class="timeline-content">
+                            <span class="year">2025 - Aujourd'hui</span>
+                            <h4>Senior UI/UX Designer Frontend & Backend</h4>
+                            <div class="company"><i class="fas fa-building"></i>Kinshasa, RDC</div>
+                            <div class="desc">Conception UI/UX, développement Frontend & Backend, création de sites web modernes et développement de solutions digitales complètes.</div>
+                            <div class="tech-used">
+                                <span>Django</span>
+                                <span>PostgreSQL</span>
+                                <span>IA</span>
+                                <span>React</span>
+                                <span>TypeScript</span>
+                                <span>Figma</span>
+                                <span>Tailwind</span>
+                                <span>Node.js</span>
                             </div>
                         </div>
                     </div>
-                    <!-- Slide 2 -->
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <div class="stars">★★★★★</div>
-                            <blockquote>“Un talent rare qui allie design et technique. Divin a livré un projet complexe dans les délais avec une qualité irréprochable. Je recommande vivement.”</blockquote>
-                            <div class="client-info">
-                                <img src="images/Stone.jpeg" alt="Agisha Stone" class="client-avatar" />
-                                <div>
-                                    <div class="client-name">Agisha Stone</div>
-                                    <div class="client-role">Étudiant, UEA</div>
-                                </div>
+
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"><i class="fas fa-circle"></i></div>
+                        <div class="timeline-content">
+                            <span class="year">2021 - 2023</span>
+                            <h4>Senior UI/UX Designer & Frontend</h4>
+                            <div class="company"><i class="fas fa-building"></i> Bukavu, RDC</div>
+                            <div class="desc">Conception et développement d'interfaces utilisateur pour des applications web et mobiles à fort trafic. Mise en place de design systems.</div>
+                            <div class="tech-used">
+                                <span>React Native</span>
+                                <span>Figma</span>
+                                <span>GraphQL</span>
+                                <span>Firebase</span>
                             </div>
                         </div>
                     </div>
-                    <!-- Slide 3 -->
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <div class="stars">★★★★★</div>
-                            <blockquote>“Divin a complètement transformé notre présence en ligne. Son approche stratégique et son sens du détail ont permis de créer une identité forte et cohérente.”</blockquote>
-                            <div class="client-info">
-                                <img src="images/vijay.jpg" alt="Akilimali Vijay" class="client-avatar" />
-                                <div>
-                                    <div class="client-name">Akilimali Vijay</div>
-                                    <div class="client-role">Fondateur, Adisi Games</div>
-                                </div>
+
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"><i class="fas fa-circle"></i></div>
+                        <div class="timeline-content">
+                            <span class="year">2019 - 2021</span>
+                            <h4>Designer & Développeur Full-Stack</h4>
+                            <div class="company"><i class="fas fa-laptop"></i>Bukavu, RDC</div>
+                            <div class="desc">Création de sites web et applications mobiles pour une trentaine de clients. Branding, UI/UX, développement et maintenance.</div>
+                            <div class="tech-used">
+                                <span>React</span>
+                                <span>Flutter</span>
+                                <span>Adobe Suite</span>
+                                <span>Webflow</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"><i class="fas fa-circle"></i></div>
+                        <div class="timeline-content">
+                            <span class="year">2017 - 2019</span>
+                            <h4>Bachelor Design & Développement</h4>
+                            <div class="company"><i class="fas fa-graduation-cap"></i>Bukavu, RDC</div>
+                            <div class="desc">Formation en design graphique, UI/UX et développement web. Projets collaboratifs avec des agences et startups.</div>
+                            <div class="tech-used">
+                                <span>Design</span>
+                                <span>UI/UX</span>
+                                <span>HTML/CSS</span>
+                                <span>JavaScript</span>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="carousel-controls">
-                    <button id="prevTestimonial"><i class="fas fa-chevron-left"></i></button>
-                    <button id="nextTestimonial"><i class="fas fa-chevron-right"></i></button>
-                </div>
-                <div class="carousel-dots" id="carouselDots">
-                    <button class="dot active" data-index="0"></button>
-                    <button class="dot" data-index="1"></button>
-                    <button class="dot" data-index="2"></button>
-                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ============================================
-    COMMANDE
-    ============================================ -->
-    <section class="commande section-padding" id="commande">
-        <div class="container">
-            <div class="commande-header animate-on-scroll">
-                <span class="section-label">Passez votre commande</span>
-                <h2 class="section-title">
-                    Choisissez votre <span class="highlight">offre</span>
-                </h2>
-                <p class="section-subtitle">
-                    Sélectionnez le forfait qui correspond le mieux à vos besoins et passez votre commande en quelques clics.
-                </p>
-            </div>
-
-            <div class="commande-grid">
-                <div class="commande-card animate-on-scroll">
-                    <h3>Startup</h3>
-                    <p>Parfait pour les projets en phase de lancement. Identité visuelle, UX Design et landing page.</p>
-                    <div class="commande-price">$1,990 <small>HT</small></div>
-                    <a href="https://wa.me/243901087801?text=Bonjour%20Divin%2C%20je%20souhaite%20commander%20le%20forfait%20Startup" target="_blank" class="btn-primary">Commander <i class="fab fa-whatsapp"></i></a>
+        <!-- ============================================
+        CARROUSEL AVIS CLIENTS
+        ============================================ -->
+        <section class="testimonials section-padding" id="testimonials" aria-label="Témoignages">
+            <div class="container">
+                <div class="testimonials-header animate-on-scroll">
+                    <span class="section-label">Témoignages</span>
+                    <h2 class="section-title">
+                        Ce que disent <span class="highlight">mes clients</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Des retours de clients qui ont fait confiance à mon expertise.
+                    </p>
                 </div>
 
-                <div class="commande-card animate-on-scroll" style="border-color:rgba(220,38,38,0.2);">
-                    <h3>Business</h3>
-                    <p>Pour les marques établies. Stratégie de marque, design system et développement web complet.</p>
-                    <div class="commande-price">$2,990 <small>HT</small></div>
-                    <a href="https://wa.me/243901087801?text=Bonjour%20Divin%2C%20je%20souhaite%20commander%20le%20forfait%20Business" target="_blank" class="btn-primary">Commander <i class="fab fa-whatsapp"></i></a>
-                </div>
-
-                <div class="commande-card animate-on-scroll">
-                    <h3>Premium</h3>
-                    <p>L'accompagnement complet. Direction artistique, campagne 360° et conseil stratégique.</p>
-                    <div class="commande-price">$4,990 <small>HT</small></div>
-                    <a href="https://wa.me/243901087801?text=Bonjour%20Divin%2C%20je%20souhaite%20commander%20le%20forfait%20Premium" target="_blank" class="btn-primary">Commander <i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CONTACT
-    ============================================ -->
-    <section class="contact section-padding" id="contact">
-        <div class="container">
-            <div class="contact-header animate-on-scroll">
-                <span class="section-label">Contact</span>
-                <h2 class="section-title">
-                    Travaillons <span class="highlight">ensemble</span>
-                </h2>
-                <p class="section-subtitle">
-                    Une question, un projet ? N'hésitez pas à me contacter. Je vous répondrai sous 24h.
-                </p>
-            </div>
-
-            <div class="contact-grid">
-                <div class="contact-info-card animate-on-scroll">
-                    <div class="contact-item">
-                        <div class="icon"><i class="fas fa-envelope"></i></div>
-                        <div class="info">
-                            <h4>Email</h4>
-                            <p><a href="mailto:divinntwali119@gmail.com">divinntwali119@gmail.com</a></p>
+                <div class="testimonials-carousel animate-on-scroll">
+                    <div class="testimonials-track" id="testimonialsTrack">
+                        <!-- Slide 1 -->
+                        <div class="testimonial-slide">
+                            <div class="testimonial-card">
+                                <div class="stars">★★★★★</div>
+                                <blockquote>“Divin a su comprendre nos besoins et les transformer en une expérience utilisateur exceptionnelle. Son professionnalisme et sa créativité ont fait la différence.”</blockquote>
+                                <div class="client-info">
+                                    <img src="images/mardoché.jpg" alt="Lilombo Mardoché" class="client-avatar" width="52" height="52" />
+                                    <div>
+                                        <div class="client-name">Lilombo Mardoché</div>
+                                        <div class="client-role">Co-fondateur, Dunia E-learning</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="icon"><i class="fab fa-whatsapp"></i></div>
-                        <div class="info">
-                            <h4>WhatsApp</h4>
-                            <p><a href="https://wa.me/243901087801" target="_blank">+243 901 087 801</a></p>
+                        <!-- Slide 2 -->
+                        <div class="testimonial-slide">
+                            <div class="testimonial-card">
+                                <div class="stars">★★★★★</div>
+                                <blockquote>“Un talent rare qui allie design et technique. Divin a livré un projet complexe dans les délais avec une qualité irréprochable. Je recommande vivement.”</blockquote>
+                                <div class="client-info">
+                                    <img src="images/Stone.jpeg" alt="Agisha Stone" class="client-avatar" width="52" height="52" />
+                                    <div>
+                                        <div class="client-name">Agisha Stone</div>
+                                        <div class="client-role">Étudiant, UEA</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="icon"><i class="fas fa-map-pin"></i></div>
-                        <div class="info">
-                            <h4>Localisation</h4>
-                            <p>Kinshasa, RDC, Mont-Ngafula</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="icon"><i class="fas fa-clock"></i></div>
-                        <div class="info">
-                            <h4>Disponibilité</h4>
-                            <p>Lun - Sam · 9h - 19h</p>
+                        <!-- Slide 3 -->
+                        <div class="testimonial-slide">
+                            <div class="testimonial-card">
+                                <div class="stars">★★★★★</div>
+                                <blockquote>“Divin a complètement transformé notre présence en ligne. Son approche stratégique et son sens du détail ont permis de créer une identité forte et cohérente.”</blockquote>
+                                <div class="client-info">
+                                    <img src="images/vijay.jpg" alt="Akilimali Vijay" class="client-avatar" width="52" height="52" />
+                                    <div>
+                                        <div class="client-name">Akilimali Vijay</div>
+                                        <div class="client-role">Fondateur, Adisi Games</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="footer-social">
-                        <a href="https://github.com/divinntwali" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://linkedin.com/in/divinntwali" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://twitter.com/divinntwali" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="https://instagram.com/divinntwali" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/DivinDesign" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.youtube.com/@Divin_Design" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="https://tiktok.com/@divinntwali20" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <div class="carousel-controls">
+                        <button id="prevTestimonial" aria-label="Témoignage précédent"><i class="fas fa-chevron-left"></i></button>
+                        <button id="nextTestimonial" aria-label="Témoignage suivant"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="carousel-dots" id="carouselDots">
+                        <button class="dot active" data-index="0" aria-label="Témoignage 1"></button>
+                        <button class="dot" data-index="1" aria-label="Témoignage 2"></button>
+                        <button class="dot" data-index="2" aria-label="Témoignage 3"></button>
                     </div>
                 </div>
-
-                <form class="contact-form-card animate-on-scroll" id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Votre nom</label>
-                        <input type="text" id="name" placeholder="Jean Dupont" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Votre email</label>
-                        <input type="email" id="email" placeholder="jean@exemple.com" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Sujet</label>
-                        <input type="text" id="subject" placeholder="Demande de projet" />
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" placeholder="Parlez-moi de votre projet..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">
-                        Envoyer le message <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- ============================================
+        COMMANDE
+        ============================================ -->
+        <section class="commande section-padding" id="commande" aria-label="Commande">
+            <div class="container">
+                <div class="commande-header animate-on-scroll">
+                    <span class="section-label">Passez votre commande</span>
+                    <h2 class="section-title">
+                        Choisissez votre <span class="highlight">offre</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Sélectionnez le forfait qui correspond le mieux à vos besoins et passez votre commande en quelques clics.
+                    </p>
+                </div>
+
+                <div class="commande-grid">
+                    <div class="commande-card animate-on-scroll">
+                        <h3>Startup</h3>
+                        <p>Parfait pour les projets en phase de lancement. Identité visuelle, UX Design et landing page.</p>
+                        <div class="commande-price">$1,990 <small>HT</small></div>
+                        <a href="https://wa.me/243901087801?text=Bonjour%20Divin%2C%20je%20souhaite%20commander%20le%20forfait%20Startup" target="_blank" class="btn-primary">Commander <i class="fab fa-whatsapp"></i></a>
+                    </div>
+
+                    <div class="commande-card animate-on-scroll" style="border-color:rgba(220,38,38,0.2);">
+                        <h3>Business</h3>
+                        <p>Pour les marques établies. Stratégie de marque, design system et développement web complet.</p>
+                        <div class="commande-price">$2,990 <small>HT</small></div>
+                        <a href="https://wa.me/243901087801?text=Bonjour%20Divin%2C%20je%20souhaite%20commander%20le%20forfait%20Business" target="_blank" class="btn-primary">Commander <i class="fab fa-whatsapp"></i></a>
+                    </div>
+
+                    <div class="commande-card animate-on-scroll">
+                        <h3>Premium</h3>
+                        <p>L'accompagnement complet. Direction artistique, campagne 360° et conseil stratégique.</p>
+                        <div class="commande-price">$4,990 <small>HT</small></div>
+                        <a href="https://wa.me/243901087801?text=Bonjour%20Divin%2C%20je%20souhaite%20commander%20le%20forfait%20Premium" target="_blank" class="btn-primary">Commander <i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+        CONTACT
+        ============================================ -->
+        <section class="contact section-padding" id="contact" aria-label="Contact">
+            <div class="container">
+                <div class="contact-header animate-on-scroll">
+                    <span class="section-label">Contact</span>
+                    <h2 class="section-title">
+                        Travaillons <span class="highlight">ensemble</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Une question, un projet ? N'hésitez pas à me contacter. Je vous répondrai sous 24h.
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-info-card animate-on-scroll">
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-envelope"></i></div>
+                            <div class="info">
+                                <h4>Email</h4>
+                                <p><a href="mailto:divinntwali119@gmail.com">divinntwali119@gmail.com</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                            <div class="info">
+                                <h4>WhatsApp</h4>
+                                <p><a href="https://wa.me/243901087801" target="_blank">+243 901 087 801</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-map-pin"></i></div>
+                            <div class="info">
+                                <h4>Localisation</h4>
+                                <p>Kinshasa, RDC, Mont-Ngafula</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-clock"></i></div>
+                            <div class="info">
+                                <h4>Disponibilité</h4>
+                                <p>Lun - Sam · 9h - 19h</p>
+                            </div>
+                        </div>
+
+                        <div class="footer-social">
+                            <a href="https://github.com/divinntwali" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://linkedin.com/in/divinntwali" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://twitter.com/divinntwali" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://instagram.com/divinntwali" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/DivinDesign" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.youtube.com/@Divin_Design" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="https://tiktok.com/@divinntwali20" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+
+                    <form class="contact-form-card animate-on-scroll" id="contactForm" aria-label="Formulaire de contact">
+                        <div class="form-group">
+                            <label for="name">Votre nom</label>
+                            <input type="text" id="name" placeholder="Jean Dupont" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Votre email</label>
+                            <input type="email" id="email" placeholder="jean@exemple.com" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Sujet</label>
+                            <input type="text" id="subject" placeholder="Demande de projet" />
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" placeholder="Parlez-moi de votre projet..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            Envoyer le message <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <!-- ============================================
     FOOTER
     ============================================ -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
@@ -3263,7 +3426,7 @@
                     <h4>Newsletter</h4>
                     <p>Recevez mes conseils design & dev chaque mois.</p>
                     <form id="newsletterForm">
-                        <input type="email" placeholder="Votre email" required />
+                        <input type="email" placeholder="Votre email" required aria-label="Email pour la newsletter" />
                         <button type="submit">S'abonner</button>
                     </form>
                 </div>
