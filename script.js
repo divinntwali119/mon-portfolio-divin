@@ -1,7 +1,7 @@
 /**
  * ============================================
  * DIVIN NTWALI - Portfolio JavaScript
- * Version: 2.1 (Preloader 2 secondes)
+ * Version: 2.2 (Améliorations UI)
  * ============================================
  */
 
@@ -20,8 +20,7 @@
 
         function updateLoader() {
             const elapsed = (Date.now() - startTime) / 1000;
-            
-            // Accélération progressive pour atteindre 100% en ~1.8s
+
             let increment;
             if (progress < 30) {
                 increment = Math.random() * 12 + 6;
@@ -32,7 +31,7 @@
             } else {
                 increment = Math.random() * 6 + 2;
             }
-            
+
             progress = Math.min(progress + increment, 100);
             loaderFill.style.width = progress + '%';
             loaderPercent.textContent = Math.round(progress) + '%';
@@ -41,7 +40,6 @@
                 const delay = Math.max(30, 200 - elapsed * 2);
                 setTimeout(updateLoader, delay + Math.random() * 80);
             } else {
-                // Temps minimum de 2 secondes
                 const remainingTime = Math.max(0, 2000 - (Date.now() - startTime));
                 setTimeout(function() {
                     preloader.classList.add('hidden');
@@ -164,12 +162,6 @@
 
         if (themeToggle) {
             themeToggle.addEventListener('click', toggleTheme);
-            themeToggle.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleTheme();
-                }
-            });
         }
 
         if (themeToggleMobile) {
@@ -242,15 +234,6 @@
                 goToHeroSlide(index);
                 startHeroSlideshow();
             });
-
-            indicator.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    stopHeroSlideshow();
-                    goToHeroSlide(index);
-                    startHeroSlideshow();
-                }
-            });
         });
 
         const heroContainer = document.querySelector('.hero-slideshow');
@@ -270,15 +253,6 @@
                 startHeroSlideshow();
             }
         });
-
-        window.heroSlideshow = {
-            goTo: goToHeroSlide,
-            next: nextHeroSlide,
-            start: startHeroSlideshow,
-            stop: stopHeroSlideshow,
-            pause: pauseHeroSlideshow,
-            resume: resumeHeroSlideshow
-        };
     })();
 
     // ============================================
@@ -326,12 +300,6 @@
 
         if (menuToggle) {
             menuToggle.addEventListener('click', toggleMobileMenu);
-            menuToggle.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleMobileMenu();
-                }
-            });
         }
 
         if (closeMenu) {
@@ -351,13 +319,6 @@
                 toggleMobileMenu();
             }
         });
-
-        window.mobileMenu = {
-            open: function() { if (!menuOpen) toggleMobileMenu(); },
-            close: function() { if (menuOpen) toggleMobileMenu(); },
-            toggle: toggleMobileMenu,
-            isOpen: function() { return menuOpen; }
-        };
     })();
 
     // ============================================
@@ -636,15 +597,6 @@
                 goToSlide(index);
                 startAutoPlay();
             });
-
-            dot.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    stopAutoPlay();
-                    goToSlide(index);
-                    startAutoPlay();
-                }
-            });
         });
 
         const carousel = document.querySelector('.testimonials-carousel');
@@ -657,15 +609,6 @@
 
         goToSlide(0);
         startAutoPlay();
-
-        window.testimonials = {
-            goTo: goToSlide,
-            next: nextSlide,
-            start: startAutoPlay,
-            stop: stopAutoPlay,
-            pause: pauseAutoPlay,
-            resume: resumeAutoPlay
-        };
     })();
 
     // ============================================
@@ -693,11 +636,9 @@
                 const input = document.getElementById(field.id);
                 if (!field.value) {
                     input.setAttribute('aria-invalid', 'true');
-                    input.setAttribute('aria-describedby', field.id + '-error');
                     hasError = true;
                 } else {
                     input.removeAttribute('aria-invalid');
-                    input.removeAttribute('aria-describedby');
                 }
             });
 
@@ -743,22 +684,6 @@
                     successMessage.remove();
                 }, 8000);
             }, 500);
-        });
-
-        document.querySelectorAll('#contactForm input, #contactForm textarea').forEach(function(input) {
-            input.addEventListener('blur', function() {
-                if (this.hasAttribute('required') && !this.value.trim()) {
-                    this.setAttribute('aria-invalid', 'true');
-                } else {
-                    this.removeAttribute('aria-invalid');
-                }
-            });
-
-            input.addEventListener('input', function() {
-                if (this.value.trim()) {
-                    this.removeAttribute('aria-invalid');
-                }
-            });
         });
     })();
 
@@ -824,63 +749,7 @@
     })();
 
     // ============================================
-    // 14. OPTIMISATION PERFORMANCES
-    // ============================================
-    (function optimizePerformance() {
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(function() {
-                const images = document.querySelectorAll('img[loading="lazy"]');
-                if ('IntersectionObserver' in window) {
-                    const imageObserver = new IntersectionObserver(function(entries) {
-                        entries.forEach(function(entry) {
-                            if (entry.isIntersecting) {
-                                const img = entry.target;
-                                if (img.dataset.src) {
-                                    img.src = img.dataset.src;
-                                }
-                                imageObserver.unobserve(img);
-                            }
-                        });
-                    });
-                    images.forEach(function(img) {
-                        imageObserver.observe(img);
-                    });
-                }
-            }, { timeout: 2000 });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            let resizeTimeout;
-            window.addEventListener('resize', function() {
-                if (resizeTimeout) {
-                    cancelAnimationFrame(resizeTimeout);
-                }
-                resizeTimeout = requestAnimationFrame(function() {});
-            }, { passive: true });
-        });
-    })();
-
-    // ============================================
-    // 15. GESTION DU FOCUS
-    // ============================================
-    (function initFocusManagement() {
-        document.addEventListener('focusin', function(e) {
-            if (e.target.matches('a, button, input, textarea, select, [tabindex]')) {
-                e.target.style.outline = '3px solid var(--primary)';
-                e.target.style.outlineOffset = '2px';
-            }
-        });
-
-        document.addEventListener('focusout', function(e) {
-            if (e.target.matches('a, button, input, textarea, select, [tabindex]')) {
-                e.target.style.outline = '';
-                e.target.style.outlineOffset = '';
-            }
-        });
-    })();
-
-    // ============================================
-    // 16. CONSOLE
+    // 14. CONSOLE
     // ============================================
     (function showConsoleInfo() {
         console.log('%c🚀 Divin Ntwali · Designer & Développeur Full-Stack', 'font-size: 18px; font-weight: bold; color: #dc2626;');
@@ -897,6 +766,7 @@
         console.log('%c♿ Accessibilité : 100%', 'font-size: 14px; color: #22c55e;');
         console.log('%c⚡ Preloader : 2 secondes', 'font-size: 14px; color: #22c55e;');
         console.log('%c🛠️ Maintenance : 95%+', 'font-size: 14px; color: #22c55e;');
+        console.log('%c👁️ UI améliorée : Menu hamburger à gauche, bouton modal visible', 'font-size: 14px; color: #22c55e;');
     })();
 
 })();

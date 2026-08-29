@@ -1075,26 +1075,32 @@
             position: relative;
         }
 
+        /* Bouton de fermeture du modal - PLUS VISIBLE */
         .project-modal .modal-close {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color-custom);
-            color: var(--text-color);
-            width: 50px;
-            height: 50px;
-            font-size: 22px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            border: 2px solid var(--primary);
+            color: #fff;
+            width: 56px;
+            height: 56px;
+            font-size: 28px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 2001;
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
         }
 
         .project-modal .modal-close:hover {
-            border-color: var(--primary);
+            background: var(--primary);
+            transform: scale(1.1);
+            box-shadow: 0 4px 30px rgba(220, 38, 38, 0.5);
         }
 
         .project-modal .modal-image {
@@ -2166,6 +2172,26 @@
             .hero-stats .stat-item .number { font-size: 16px; }
             .hero-stats .stat-item .label { font-size: 10px; }
         }
+
+        /* ===== SUPPRESSION DES CADRES DE FOCUS ===== */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible,
+        [tabindex]:focus-visible {
+            outline: none !important;
+            outline-offset: 0 !important;
+        }
+
+        .project-link:focus-visible,
+        .btn-primary:focus-visible,
+        .btn-secondary:focus-visible,
+        .btn-service:focus-visible,
+        .commande-card .btn-primary:focus-visible {
+            outline: none !important;
+            outline-offset: 0 !important;
+        }
     </style>
 </head>
 <body>
@@ -2192,6 +2218,15 @@
     ============================================ -->
     <nav class="navbar" id="navbar">
         <div class="container">
+            <!-- Menu hamburger à gauche -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </button>
+
             <a href="#home" class="logo-wrapper">
                 <img src="images/photo.jpg" alt="Divin Ntwali" class="logo-avatar" />
                 <div class="logo">
@@ -2213,15 +2248,8 @@
                 <li><button class="theme-toggle" id="themeToggle" aria-label="Changer de thème"><i class="fas fa-moon"></i></button></li>
             </ul>
 
-            <div style="display:flex; align-items:center; gap:8px;">
-                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-                    <span class="menu-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                </button>
-            </div>
+            <!-- Espace vide à droite pour la bonne vue -->
+            <div style="width:48px;"></div>
         </div>
     </nav>
 
@@ -2365,7 +2393,7 @@
                     </div>
                     <div class="about-card">
                         <div class="card-image">
-                            <img src="images/Ma minute finance _ pourquoi décorreler ses investissements _.jpeg" alt="Stratégie" loading="lazy" />
+                            <img src="images/strategie.jpeg" alt="Stratégie" loading="lazy" />
                         </div>
                         <div class="card-body">
                             <h4>Stratégie & Conseil</h4>
@@ -2640,7 +2668,9 @@
     ============================================ -->
     <div class="project-modal" id="projectModal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeProject()"><i class="fas fa-times"></i></button>
+            <button class="modal-close" onclick="closeProject()" aria-label="Fermer le projet">
+                <i class="fas fa-times"></i>
+            </button>
             <div class="modal-image">
                 <img src="" alt="Projet" id="modalImage" />
             </div>
@@ -3156,7 +3186,7 @@
     </footer>
 
     <!-- ============================================
-    JAVASCRIPT
+    JAVASCRIPT (fichier externe)
     ============================================ -->
     <script src="script.js"></script>
 </body>
