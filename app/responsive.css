@@ -1,0 +1,137 @@
+/* Keep interior routes readable on narrow screens. */
+.interior-profile > div {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.interior-profile h1 {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 767px) {
+  .interior-hero {
+    padding: 64px 0 48px;
+  }
+
+  .interior-profile {
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .interior-profile > img {
+    width: clamp(140px, 42vw, 180px);
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .interior-profile > div {
+    width: 100%;
+  }
+
+  .interior-profile h1 {
+    max-width: 100%;
+    font-size: clamp(30px, 7.5vw, 42px);
+  }
+
+  .interior-copy {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .interior-vision h2 {
+    font-size: clamp(24px, 6vw, 30px);
+  }
+}
+
+/* A genuine, keyboard-accessible, touch-friendly one-card-at-a-time carousel. */
+.testimonials-carousel {
+  max-width: 820px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 20px;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.testimonials-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonials-track {
+  gap: 0;
+  transition: none;
+}
+
+.testimonials-track::after {
+  flex: 0 0 40px;
+  content: '';
+}
+
+.testimonial-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.carousel-dots .dot {
+  position: relative;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.carousel-dots .dot::before {
+  width: 22px;
+  height: 3px;
+  border-radius: 4px;
+  background: var(--border-color-custom);
+  content: '';
+  transition: width 0.3s, background 0.3s;
+}
+
+.carousel-dots .dot.active::before {
+  width: 30px;
+  background: var(--primary);
+}
+
+@media (max-width: 639px) {
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-info-card,
+  .contact-form-card {
+    min-width: 0;
+    padding: clamp(20px, 6vw, 28px);
+  }
+
+  .contact-item {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .contact-item .info {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-item .info p,
+  .contact-item .info a {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonials-carousel {
+    scroll-snap-type: x proximity;
+  }
+}

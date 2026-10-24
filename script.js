@@ -756,7 +756,7 @@
         console.log('%c📂 Projets mis à jour : CENUMEP, Galaxy Food, Explorer Kinshasa, Tableau de bord, Art Gallery App, Portfolio Pro', 'font-size: 14px; color: #a3a3a3;');
         console.log('%c🔗 Réseaux sociaux :', 'font-size: 14px; color: #a3a3a3;');
         console.log('   • GitHub: https://github.com/divinntwali');
-        console.log('   • LinkedIn: https://linkedin.com/in/divinntwali');
+        console.log('   • LinkedIn: https://www.linkedin.com/in/divin-ntwali-bagalwa-53b560446');
         console.log('   • Twitter: https://twitter.com/divinntwali');
         console.log('   • Instagram: https://instagram.com/divinntwali');
         console.log('   • Facebook: https://www.facebook.com/DivinDesign');

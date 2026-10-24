@@ -110,7 +110,7 @@ const testimonials = [
 
 const socialLinks = [
   ['https://github.com/divinntwali', 'GitHub', 'fa-github'],
-  ['https://linkedin.com/in/divinntwali', 'LinkedIn', 'fa-linkedin-in'],
+  ['https://www.linkedin.com/in/divin-ntwali-bagalwa-53b560446', 'LinkedIn', 'fa-linkedin-in'],
   ['https://twitter.com/divinntwali', 'Twitter', 'fa-twitter'],
   ['https://instagram.com/divinntwali', 'Instagram', 'fa-instagram'],
   ['https://www.facebook.com/DivinDesign', 'Facebook', 'fa-facebook-f'],
@@ -162,6 +162,11 @@ function BusinessCardPreview() {
   );
 }
 
+function testimonialScrollPosition(viewport, slide) {
+  const paddingLeft = Number.parseFloat(window.getComputedStyle(viewport).paddingLeft) || 0;
+  return slide.offsetLeft - viewport.clientLeft - paddingLeft;
+}
+
 function ProjectModal({ project, onClose }) {
   useEffect(() => {
     if (!project) return undefined;
@@ -196,47 +201,51 @@ function ProjectModal({ project, onClose }) {
 export default function PortfolioHome() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const testimonialIndexRef = useRef(0);
+  const testimonialScrollTimeoutRef = useRef(null);
   const carouselRef = useRef(null);
 
   function scrollToTestimonial(index) {
     const viewport = carouselRef.current;
-    const slide = viewport?.querySelectorAll('.testimonial-slide')[index];
+    const targetIndex = ((index % testimonials.length) + testimonials.length) % testimonials.length;
+    const slide = viewport?.querySelectorAll('.testimonial-slide')[targetIndex];
     if (!viewport || !slide) return;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    viewport.scrollTo({ left: slide.offsetLeft, behavior: reduceMotion ? 'auto' : 'smooth' });
-    setTestimonialIndex(index);
+    viewport.scrollTo({ left: testimonialScrollPosition(viewport, slide), behavior: reduceMotion ? 'auto' : 'smooth' });
+    testimonialIndexRef.current = targetIndex;
+    setTestimonialIndex(targetIndex);
+    window.clearTimeout(testimonialScrollTimeoutRef.current);
   }
 
   useEffect(() => {
     const viewport = carouselRef.current;
     if (!viewport) return undefined;
-    let scrollTimeout;
     const onScroll = () => {
-      window.clearTimeout(scrollTimeout);
-      scrollTimeout = window.setTimeout(() => {
+      window.clearTimeout(testimonialScrollTimeoutRef.current);
+      testimonialScrollTimeoutRef.current = window.setTimeout(() => {
         const slides = [...viewport.querySelectorAll('.testimonial-slide')];
         const nearest = slides.reduce((best, slide, index) => (
-          Math.abs(slide.offsetLeft - viewport.scrollLeft) < Math.abs(slides[best].offsetLeft - viewport.scrollLeft) ? index : best
+          Math.abs(testimonialScrollPosition(viewport, slide) - viewport.scrollLeft)
+            < Math.abs(testimonialScrollPosition(viewport, slides[best]) - viewport.scrollLeft) ? index : best
         ), 0);
+        testimonialIndexRef.current = nearest;
         setTestimonialIndex(nearest);
       }, 80);
     };
+    const onResize = () => {
+      const slide = viewport.querySelectorAll('.testimonial-slide')[testimonialIndexRef.current];
+      if (slide) viewport.scrollTo({ left: testimonialScrollPosition(viewport, slide), behavior: 'auto' });
+    };
     viewport.addEventListener('scroll', onScroll, { passive: true });
-    const interval = window.setInterval(() => {
-      setTestimonialIndex((current) => {
-        const next = (current + 1) % testimonials.length;
-        const slide = viewport.querySelectorAll('.testimonial-slide')[next];
-        if (slide) {
-          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          viewport.scrollTo({ left: slide.offsetLeft, behavior: reduceMotion ? 'auto' : 'smooth' });
-        }
-        return next;
-      });
-    }, 6000);
+    window.addEventListener('resize', onResize);
+    const interval = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? null
+      : window.setInterval(() => scrollToTestimonial(testimonialIndexRef.current + 1), 6000);
     return () => {
       viewport.removeEventListener('scroll', onScroll);
-      window.clearInterval(interval);
-      window.clearTimeout(scrollTimeout);
+      window.removeEventListener('resize', onResize);
+      if (interval !== null) window.clearInterval(interval);
+      window.clearTimeout(testimonialScrollTimeoutRef.current);
     };
   }, []);
 
@@ -281,7 +290,7 @@ export default function PortfolioHome() {
 
         <section className="experience section-padding" id="experience"><div className="container"><SectionHeading title={<>Mon <span className="highlight">expérience</span></>}>Un cheminement riche en expériences qui ont façonné ma vision du design et du développement.</SectionHeading><div className="timeline">{experience.map(([year, role, location, description, tech]) => <article className="timeline-item animate-on-scroll" key={year}><span className="timeline-dot"><i className="fas fa-circle" aria-hidden="true" /></span><div className="timeline-content"><span className="year">{year}</span><h3>{role}</h3><p className="company"><i className="fas fa-building" aria-hidden="true" /> {location}</p><p className="desc">{description}</p><div className="tech-used">{tech.map((item) => <span key={item}>{item}</span>)}</div></div></article>)}</div></div></section>
 
-        <section className="testimonials section-padding" id="testimonials"><div className="container"><SectionHeading title={<>Ce que disent <span className="highlight">mes clients</span></>}>Des retours de clients qui ont fait confiance à mon expertise.</SectionHeading><div className="testimonials-stats animate-on-scroll">{[['fa-star', '4.9', 'Note moyenne'], ['fa-smile', '98%', 'Clients satisfaits'], ['fa-redo', '85%', 'Clients fidèles'], ['fa-comment', '120+', 'Avis reçus']].map(([icon, value, label]) => <div className="testimonial-stat" key={label}><span className="stat-icon"><i className={`fas ${icon}`} aria-hidden="true" /></span><p className="stat-number">{value}</p><p className="stat-label">{label}</p></div>)}</div><div className="testimonials-carousel animate-on-scroll" ref={carouselRef} aria-label="Témoignages clients" tabIndex={0}><div className="testimonials-track">{testimonials.map(([quote, image, name, role, company]) => <article className="testimonial-slide" key={name}><div className="testimonial-card"><div className="testimonial-rating" aria-label="Note : 5 sur 5">{Array.from({ length: 5 }, (_, index) => <i className="fas fa-star" aria-hidden="true" key={index} />)} <span className="rating-badge">5.0</span></div><blockquote>{quote}</blockquote><div className="client-info"><Image className="client-avatar" src={imagePath(image)} alt={`Portrait de ${name}`} width={52} height={52} unoptimized /><div className="client-details"><p className="client-name">{name}</p><p className="client-role">{role}</p><p className="client-company"><i className="fas fa-building" aria-hidden="true" /> {company}</p></div></div></div></article>)}</div></div><div className="carousel-controls"><button type="button" onClick={() => scrollToTestimonial((testimonialIndex - 1 + testimonials.length) % testimonials.length)} aria-label="Avis précédent"><i className="fas fa-chevron-left" aria-hidden="true" /></button><button type="button" onClick={() => scrollToTestimonial((testimonialIndex + 1) % testimonials.length)} aria-label="Avis suivant"><i className="fas fa-chevron-right" aria-hidden="true" /></button></div><div className="carousel-dots" role="group" aria-label="Choisir un témoignage">{testimonials.map(([, , name], index) => <button className={`dot${testimonialIndex === index ? ' active' : ''}`} key={name} type="button" onClick={() => scrollToTestimonial(index)} aria-label={`Afficher le témoignage de ${name}`} aria-pressed={testimonialIndex === index} />)}</div></div></section>
+        <section className="testimonials section-padding" id="testimonials"><div className="container"><SectionHeading title={<>Ce que disent <span className="highlight">mes clients</span></>}>Des retours de clients qui ont fait confiance à mon expertise.</SectionHeading><div className="testimonials-stats animate-on-scroll">{[['fa-star', '4.9', 'Note moyenne'], ['fa-smile', '98%', 'Clients satisfaits'], ['fa-redo', '85%', 'Clients fidèles'], ['fa-comment', '120+', 'Avis reçus']].map(([icon, value, label]) => <div className="testimonial-stat" key={label}><span className="stat-icon"><i className={`fas ${icon}`} aria-hidden="true" /></span><p className="stat-number">{value}</p><p className="stat-label">{label}</p></div>)}</div><div className="testimonials-carousel animate-on-scroll" ref={carouselRef} role="region" aria-roledescription="carrousel" aria-label="Avis de clients" tabIndex={0}><div className="testimonials-track">{testimonials.map(([quote, image, name, role, company], index) => <article className="testimonial-slide" key={name} role="group" aria-roledescription="diapositive" aria-label={`${index + 1} sur ${testimonials.length}`}><div className="testimonial-card"><div className="testimonial-rating" aria-label="Note : 5 sur 5">{Array.from({ length: 5 }, (_, index) => <i className="fas fa-star" aria-hidden="true" key={index} />)} <span className="rating-badge">5.0</span></div><blockquote>{quote}</blockquote><div className="client-info"><Image className="client-avatar" src={imagePath(image)} alt={`Portrait de ${name}`} width={52} height={52} unoptimized /><div className="client-details"><p className="client-name">{name}</p><p className="client-role">{role}</p><p className="client-company"><i className="fas fa-building" aria-hidden="true" /> {company}</p></div></div></div></article>)}</div></div><div className="carousel-controls"><button type="button" onClick={() => scrollToTestimonial((testimonialIndex - 1 + testimonials.length) % testimonials.length)} aria-label="Avis précédent"><i className="fas fa-chevron-left" aria-hidden="true" /></button><button type="button" onClick={() => scrollToTestimonial((testimonialIndex + 1) % testimonials.length)} aria-label="Avis suivant"><i className="fas fa-chevron-right" aria-hidden="true" /></button></div><div className="carousel-dots" role="group" aria-label="Choisir un témoignage">{testimonials.map(([, , name], index) => <button className={`dot${testimonialIndex === index ? ' active' : ''}`} key={name} type="button" onClick={() => scrollToTestimonial(index)} aria-label={`Afficher le témoignage de ${name}`} aria-pressed={testimonialIndex === index} />)}</div></div></section>
 
         <section className="commande section-padding" id="commande"><div className="container"><SectionHeading title={<>Choisissez votre <span className="highlight">offre</span></>}>Sélectionnez le forfait qui correspond le mieux à vos besoins.</SectionHeading><div className="commande-grid">{servicePlans.map((plan) => <article className="commande-card animate-on-scroll" key={plan.name}><h3>{plan.name}</h3><p>{plan.name === 'Startup' ? 'Site vitrine professionnel pour lancer votre activité.' : plan.name === 'Business' ? 'Site sur mesure optimisé SEO pour générer des clients.' : 'Transformation digitale complète avec stratégie de marque.'}</p><div className="commande-price">{plan.price}</div><a href={wa(`Bonjour Divin, je souhaite commander le forfait ${plan.name}`)} target="_blank" rel="noreferrer" className="btn-primary">Commander <i className="fab fa-whatsapp" aria-hidden="true" /></a></article>)}</div></div></section>
 

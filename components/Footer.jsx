@@ -6,7 +6,7 @@ import { sitePath } from '@/lib/paths';
 
 const socialLinks = [
   ['https://github.com/divinntwali', 'GitHub', 'fa-github'],
-  ['https://linkedin.com/in/divinntwali', 'LinkedIn', 'fa-linkedin-in'],
+  ['https://www.linkedin.com/in/divin-ntwali-bagalwa-53b560446', 'LinkedIn', 'fa-linkedin-in'],
   ['https://twitter.com/divinntwali', 'Twitter', 'fa-twitter'],
   ['https://instagram.com/divinntwali', 'Instagram', 'fa-instagram'],
   ['https://www.facebook.com/DivinDesign', 'Facebook', 'fa-facebook-f'],

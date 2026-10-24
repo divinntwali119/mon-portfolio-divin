@@ -1,4 +1,5 @@
 import './globals.css';
+import './responsive.css';
 import SiteChrome from '@/components/SiteChrome';
 import { DEFAULT_DESCRIPTION, SITE_URL, SOCIAL_IMAGE } from '@/lib/seo';
 
@@ -115,7 +116,7 @@ export default function RootLayout({ children }) {
         },
         sameAs: [
           'https://github.com/divinntwali',
-          'https://linkedin.com/in/divinntwali',
+          'https://www.linkedin.com/in/divin-ntwali-bagalwa-53b560446',
           'https://twitter.com/divinntwali',
           'https://instagram.com/divinntwali',
           'https://www.facebook.com/DivinDesign',

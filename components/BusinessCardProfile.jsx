@@ -29,7 +29,7 @@ const services = [
 ];
 
 const platforms = [
-  ['https://www.linkedin.com/in/divin-ntwali', 'LinkedIn', 'divin-ntwali', 'linkedin', 'fa-linkedin-in'],
+  ['https://www.linkedin.com/in/divin-ntwali-bagalwa-53b560446', 'LinkedIn', 'divin-ntwali-bagalwa-53b560446', 'linkedin', 'fa-linkedin-in'],
   ['https://github.com/divinntwali119', 'GitHub', '@divinntwali119', 'github', 'fa-github'],
   ['https://divinntwali119.github.io/mon-portfolio-divin/', 'Portfolio', 'divinntwali119.github.io', 'portfolio-site', 'fa-globe'],
   ['mailto:divinntwali119@gmail.com', 'Email', 'divinntwali119@gmail.com', 'email', 'fa-envelope'],
