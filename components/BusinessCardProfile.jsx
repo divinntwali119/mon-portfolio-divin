@@ -12,7 +12,7 @@ const experienceItems = [
 ];
 
 const educationItems = [
-  ['fa-university', 'Licence 1 — Mathématiques & Informatique', ['UNIKIN', 'En cours'], 'Étudiant en LM1 MATH INFO à l’Université de Kinshasa. Formation académique en mathématiques et informatique.'],
+  ['fa-university', 'Mathématiques & Informatique — 2e année en cours', ['UNIKIN', 'Depuis 2025'], 'Étudiant à la Faculté des Sciences et Technologies de l’Université de Kinshasa. Formation académique en mathématiques et informatique.'],
   ['fa-book', 'Formation autodidacte & pratique continue', ['Auto-formation', 'Continue'], 'Python, Django, JavaScript, PostgreSQL, Git & GitHub, IA appliquée au développement, design graphique, Adobe Photoshop, UI/UX et Figma.'],
   ['fa-certificate', 'Certifications & spécialisations', ['IA appliquée', 'Design'], 'Formations continues en intelligence artificielle appliquée au développement, design graphique et outils numériques modernes.'],
 ];

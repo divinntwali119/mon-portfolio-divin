@@ -96,10 +96,10 @@ const benefits = [
 ];
 
 const experience = [
-  ['2025 — Aujourd’hui', 'Senior UI/UX Designer Frontend & Backend', 'Kinshasa, RDC', 'Conception UI/UX, développement Frontend & Backend et création de sites web modernes.', ['Django', 'PostgreSQL', 'IA', 'React', 'TypeScript', 'Figma', 'Tailwind', 'Node.js']],
-  ['2021 — 2023', 'Senior UI/UX Designer & Frontend', 'Bukavu, RDC', 'Conception et développement d’interfaces pour des applications web et mobiles.', ['React Native', 'Figma', 'GraphQL', 'Firebase']],
-  ['2019 — 2021', 'Designer & Développeur Full-Stack', 'Bukavu, RDC', 'Création de sites web et d’applications mobiles pour une trentaine de clients.', ['React', 'Flutter', 'Adobe Suite', 'Webflow']],
-  ['2017 — 2019', 'Bachelor Design & Développement', 'Bukavu, RDC', 'Formation en design graphique, UI/UX et développement web.', ['Design', 'UI/UX', 'HTML/CSS', 'JavaScript']],
+  ['2020 — Présent', 'Freelance — Développeur indépendant', 'Activité indépendante', 'Réalisation de projets numériques et de sites web. Conception graphique et création de supports visuels. Accompagnement de clients dans leurs besoins numériques.', ['Projets numériques', 'Sites web', 'Conception graphique']],
+  ['2022 — 2024', 'Designer graphique senior', 'Parker Enterprise', 'Création de visuels et de supports de communication. Conception graphique adaptée aux besoins de l’entreprise.', ['Visuels', 'Supports de communication']],
+  ['2023 — 2024', 'Designer graphique senior', 'Église 5e CELPA Smyrne', 'Conception de supports visuels et de communication.', ['Supports visuels', 'Communication']],
+  ['Depuis 2025', 'Mathématiques et Informatique — 2e année en cours', 'Université de Kinshasa — UNIKIN', 'Faculté des Sciences et Technologies.', ['Mathématiques', 'Informatique']],
 ];
 
 const testimonials = [

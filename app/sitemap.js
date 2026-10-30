@@ -8,6 +8,7 @@ const pages = [
   { path: '/projects/', priority: 0.9, changeFrequency: 'weekly' },
   { path: '/contact/', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/carte-de-visite/', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/mon_CV.html', priority: 0.8, changeFrequency: 'monthly' },
 ];
 
 export default function sitemap() {

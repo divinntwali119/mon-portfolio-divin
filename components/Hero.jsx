@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { imagePath } from '@/lib/paths';
+import { imagePath, sitePath } from '@/lib/paths';
 
 const slides = [
   { src: 'True colours.jpeg', alt: 'Divin Ntwali, développeur et artiste numérique à Kinshasa' },
@@ -65,6 +65,7 @@ export default function Hero() {
           <div className="hero-buttons">
             <a href="#projects" className="btn-primary">Voir mes projets <i className="fas fa-arrow-right" aria-hidden="true" /></a>
             <a href="#contact" className="btn-secondary">Devis gratuit</a>
+            <a href={sitePath('/mon_CV.html')} className="btn-secondary">Mon CV</a>
           </div>
           <div className="hero-stats">
             <div className="stat-item"><div className="number">6+</div><div className="label">Années d’expérience</div></div>

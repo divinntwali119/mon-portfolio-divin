@@ -78,6 +78,34 @@
   scroll-snap-stop: always;
 }
 
+.nav-links a.cv-nav-button,
+.mobile-menu > a.cv-nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav-links a.cv-nav-button {
+  padding: 8px 14px;
+}
+
+.mobile-menu > a.cv-nav-button {
+  padding: 14px 16px;
+}
+
+.nav-links a.cv-nav-button:hover,
+.mobile-menu > a.cv-nav-button:hover {
+  background: var(--primary-dark);
+  color: #fff;
+}
+
 .carousel-dots .dot {
   position: relative;
   display: grid;

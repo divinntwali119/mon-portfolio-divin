@@ -15,6 +15,7 @@ const sectionLinks = [
   ['experience', 'Parcours', '/#experience'],
   ['testimonials', 'Avis', '/#testimonials'],
   ['contact', 'Contact', '/contact/'],
+  ['cv', 'Mon CV', '/mon_CV.html'],
 ];
 
 export default function Navbar() {
@@ -95,7 +96,7 @@ export default function Navbar() {
 
           <ul className="nav-links">
             {sectionLinks.map(([id, label, href]) => (
-              <li key={id}><a className={currentSection === id ? 'active' : ''} aria-current={currentSection === id ? 'location' : undefined} href={sitePath(href)}>{label}</a></li>
+              <li key={id}><a className={id === 'cv' ? 'cv-nav-button' : currentSection === id ? 'active' : ''} aria-current={currentSection === id ? 'location' : undefined} href={sitePath(href)}>{label}</a></li>
             ))}
             <li>
               <button
@@ -120,12 +121,13 @@ export default function Navbar() {
         {sectionLinks.map(([id, label, href], index) => (
           <a
             key={id}
+            className={id === 'cv' ? 'cv-nav-button' : undefined}
             href={sitePath(href)}
             onClick={closeMenu}
             tabIndex={menuOpen ? 0 : -1}
             style={{ animationDelay: `${0.03 * (index + 1)}s` }}
           >
-            <i className={`fas ${['fa-home', 'fa-user', 'fa-id-card', 'fa-folder-open', 'fa-briefcase', 'fa-mobile-alt', 'fa-history', 'fa-star', 'fa-envelope'][index]}`} aria-hidden="true" />
+            <i className={`fas ${['fa-home', 'fa-user', 'fa-id-card', 'fa-folder-open', 'fa-briefcase', 'fa-mobile-alt', 'fa-history', 'fa-star', 'fa-envelope', 'fa-file-alt'][index]}`} aria-hidden="true" />
             {label}
           </a>
         ))}
